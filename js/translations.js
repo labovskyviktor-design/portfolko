@@ -3,13 +3,13 @@ const translations = {
     sk: {
         nav: { about: 'O mne', services: 'Služby', skills: 'Zručnosti', work: 'Práce', contact: 'Kontakt' },
         hero: {
-            badge: 'Portfólio 2025',
-            tagline: 'Senior Creative Developer špecializujúci sa na <span class="highlight">interaktívne zážitky</span> a vysoko výkonné aplikácie.'
+            badge: 'Dostupný pre nové projekty',
+            tagline: 'Creative Developer špecializujúci sa na <span class="highlight">interaktívne zážitky</span> a vysoko výkonné aplikácie.'
         },
         cta: { works: 'Vybrané práce', contact: 'Kontaktuj ma' },
         about: {
             title: 'O mne',
-            text: 'Som <strong>Creative Developer</strong> z Bratislavy, špecializujem sa na vytváranie digitálnych zážitkov, ktoré spájajú <strong>umenie, dizajn a technológiu</strong>. S viac ako 8-ročnými skúsenosťami sa zameriavam na výkon, prístupnosť a mikro-interakcie, ktoré potešia používateľov.'
+            text: 'Som <strong>Creative Developer</strong> z Bratislavy, špecializujem sa na vytváranie digitálnych zážitkov, ktoré spájajú <strong>umenie, dizajn a technológiu</strong>. S viac ako 4-ročnými skúsenosťami sa zameriavam na výkon, prístupnosť a mikro-interakcie, ktoré potešia používateľov.'
         },
         services: {
             title: 'Služby',
@@ -77,13 +77,13 @@ const translations = {
     en: {
         nav: { about: 'About', services: 'Services', skills: 'Skills', work: 'Work', contact: 'Contact' },
         hero: {
-            badge: 'Portfolio 2025',
-            tagline: 'Senior Creative Developer specializing in <span class="highlight">interactive experiences</span> and high-performance applications.'
+            badge: 'Available for new projects',
+            tagline: 'Creative Developer specializing in <span class="highlight">interactive experiences</span> and high-performance applications.'
         },
         cta: { works: 'Selected Works', contact: 'Contact Me' },
         about: {
             title: 'About',
-            text: 'I am a <strong>Creative Developer</strong> based in Bratislava, specializing in building digital experiences that merge <strong>art, design, and technology</strong>. With over 8 years of experience, I focus on performance, accessibility, and micro-interactions that delight users.'
+            text: 'I am a <strong>Creative Developer</strong> based in Bratislava, specializing in building digital experiences that merge <strong>art, design, and technology</strong>. With over 4 years of experience, I focus on performance, accessibility, and micro-interactions that delight users.'
         },
         services: {
             title: 'Services',
