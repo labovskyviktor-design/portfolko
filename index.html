@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Senior Web Developer Portfolio - Viktor Labovský. High-performance, aesthetic web solutions.">
+    <title>Labovsky Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader-content">VL .</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <!-- Logo Removed -->
+            <ul class="nav-links">
+                <li><a href="#about" data-i18n="nav.about">O mne</a></li>
+                <li><a href="#services" data-i18n="nav.services">Služby</a></li>
+                <li><a href="#skills" data-i18n="nav.skills">Zručnosti</a></li>
+                <li><a href="#projects" data-i18n="nav.work">Práce</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+            </ul>
+        </div>
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="sk">SK</button>
+            <span class="lang-separator">/</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="background-glow"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="badge" data-i18n="hero.badge">Portfólio 2025</span>
+                <h1 class="hero-title">
+                    Viktor<br>
+                    <span class="text-stroke">Labovský</span>
+                </h1>
+                <p class="hero-tagline" data-i18n="hero.tagline">
+                    Senior Creative Developer špecializujúci sa na <span class="highlight">interaktívne zážitky</span> a
+                    vysoko výkonné aplikácie.
+                </p>
+                <div class="cta-group">
+                    <a href="#projects" class="btn btn-primary magnetic"><span data-i18n="cta.works">Vybrané
+                            práce</span></a>
+                    <a href="#contact" class="btn btn-secondary magnetic"><span data-i18n="cta.contact">Kontaktuj
+                            ma</span></a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <span class="section-title" data-i18n="about.title">O mne</span>
+            <p class="about-text" data-i18n="about.text">
+                Som <strong>Creative Developer</strong> z Bratislavy, špecializujem sa na vytváranie digitálnych
+                zážitkov, ktoré spájajú <strong>umenie, dizajn a technológiu</strong>. S viac ako 8-ročnými skúsenosťami
+                sa zameriavam na výkon, prístupnosť a mikro-interakcie, ktoré potešia používateľov.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="services.title">Služby</h2>
+            <div class="skills-grid">
+                <!-- Service 1: Web Sites -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">🌐</div>
+                            <h3 data-i18n="services.webSites.title">Webové stránky</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="services.webSites.title">Webové stránky</h3>
+                            <p data-i18n="services.webSites.desc">Prémiové prezentačné webstránky s vlastným dizajnom,
+                                perfektným SEO a bleskovou rýchlosťou.</p>
+                            <ul class="service-features">
+                                <li data-i18n="services.webSites.feature1">Landing Pages</li>
+                                <li data-i18n="services.webSites.feature2">Firemná identita</li>
+                                <li data-i18n="services.webSites.feature3">Interaktívne zážitky</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2: Web Apps -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">💻</div>
+                            <h3 data-i18n="services.webApps.title">Webové aplikácie</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="services.webApps.title">Webové aplikácie</h3>
+                            <p data-i18n="services.webApps.desc">Komplexné webové aplikácie vytvorené pre
+                                škálovateľnosť. Dashboardy, SaaS platformy a interné nástroje.</p>
+                            <ul class="service-features">
+                                <li data-i18n="services.webApps.feature1">React / Next.js</li>
+                                <li data-i18n="services.webApps.feature2">SaaS vývoj</li>
+                                <li data-i18n="services.webApps.feature3">API integrácia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="skills.title">Zručnosti & Expertíza</h2>
+            <div class="skills-grid">
+                <!-- Skill Card 1 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">⚛️</div>
+                            <h3 data-i18n="skills.react.title">React / Next.js</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.react.title">React / Next.js</h3>
+                            <p data-i18n="skills.react.desc">Vytváranie vysoko výkonných SSG a SSR aplikácií.</p>
+                            <span class="skill-level" data-i18n="skills.react.level">Senior</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">🟢</div>
+                            <h3 data-i18n="skills.node.title">Node.js</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.node.title">Node.js</h3>
+                            <p data-i18n="skills.node.desc">Škálovateľné backendové služby a REST API.</p>
+                            <span class="skill-level" data-i18n="skills.node.level">Pokročilý</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">🧊</div>
+                            <h3 data-i18n="skills.three.title">Three.js</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.three.title">Three.js</h3>
+                            <p data-i18n="skills.three.desc">Immerzívne 3D webové zážitky.</p>
+                            <span class="skill-level" data-i18n="skills.three.level">Kreatívny</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 4 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">Ⓦ</div>
+                            <h3 data-i18n="skills.wordpress.title">WordPress</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.wordpress.title">WordPress</h3>
+                            <p data-i18n="skills.wordpress.desc">Vlastné témy, pluginy & headless CMS architektúry.</p>
+                            <span class="skill-level" data-i18n="skills.wordpress.level">Expert</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 5 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">🌊</div>
+                            <h3 data-i18n="skills.tailwind.title">Tailwind CSS</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.tailwind.title">Tailwind CSS</h3>
+                            <p data-i18n="skills.tailwind.desc">Rýchly, utility-first UI vývoj.</p>
+                            <span class="skill-level" data-i18n="skills.tailwind.level">Pro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 6 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">🕸️</div>
+                            <h3 data-i18n="skills.webgl.title">WebGL</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.webgl.title">WebGL</h3>
+                            <p data-i18n="skills.webgl.desc">Hardvérovo akcelerovaná grafika.</p>
+                            <span class="skill-level" data-i18n="skills.webgl.level">Experimentálny</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 7 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">🎨</div>
+                            <h3 data-i18n="skills.design2d.title">2D Dizajn</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.design2d.title">2D Dizajn</h3>
+                            <p data-i18n="skills.design2d.desc">UI/UX, Figma & Vektorová grafika.</p>
+                            <span class="skill-level" data-i18n="skills.design2d.level">Pro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 8 -->
+                <div class="skill-card-container magnetic">
+                    <div class="skill-card">
+                        <div class="card-face card-front">
+                            <div class="icon">🎲</div>
+                            <h3 data-i18n="skills.design3d.title">3D Dizajn</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 data-i18n="skills.design3d.title">3D Dizajn</h3>
+                            <p data-i18n="skills.design3d.desc">Blender, Spline & 3D modelovanie.</p>
+                            <span class="skill-level" data-i18n="skills.design3d.level">Pro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <span class="section-title" data-i18n="projects.title">Vybrané práce</span>
+
+            <article class="project-card magnetic">
+                <div class="project-info">
+                    <div class="tags"><span>Fintech</span><span>Real-time</span></div>
+                    <h3>Nebula Dashboard</h3>
+                    <p class="project-desc">High-frequency trading interface processing millions of data points with
+                        sub-millisecond latency.</p>
+                    <a href="#" class="btn btn-secondary magnetic"><span>View Case Study</span></a>
+                </div>
+                <div class="project-image-wrapper">
+                    <!-- Browser-like header simulated with border/pseudo -->
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, #111, #222); display: flex; align-items: center; justify-content: center; color: #333; font-family: monospace;">
+                        [ PROJECT VISUAL ]
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-info">
+                    <div class="tags"><span>AI / ML</span><span>Python</span></div>
+                    <h3>Pocket Omni</h3>
+                    <p class="project-desc">Centralized AI management platform. Bridging the gap between complex models
+                        and user-friendly interfaces.</p>
+                    <a href="#" class="btn btn-secondary magnetic"><span>View Case Study</span></a>
+                </div>
+                <div class="project-image-wrapper">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, #1a1a1a, #333); display: flex; align-items: center; justify-content: center; color: #333; font-family: monospace;">
+                        [ DASHBOARD UI ]
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card magnetic">
+                <div class="project-info">
+                    <div class="tags"><span>WebGL</span><span>Three.js</span></div>
+                    <h3>Aura Portfolio</h3>
+                    <p class="project-desc">Awwwards-winning 3D portfolio template designed for digital artists and
+                        creative directors.</p>
+                    <a href="#" class="btn btn-secondary magnetic"><span>View Case Study</span></a>
+                </div>
+                <div class="project-image-wrapper">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, #050505, #151515); display: flex; align-items: center; justify-content: center; color: #333; font-family: monospace;">
+                        [ 3D RENDER ]
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container contact-container">
+            <span class="section-title" data-i18n="contact.title">Kontakt</span>
+            <a href="mailto:hello@viktor.dev" class="big-email">hello@viktor.dev</a>
+
+            <div class="hero-footer" style="padding-top: 0; border: none; margin-top: 2rem;">
+                <div class="social-links" style="display:flex; gap: 2rem; margin: 0;">
+                    <a href="#">GitHub</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+                <p style="color: #666; font-size: 0.8rem;">&copy; 2025 Viktor Labovský.</p>
+            </div>
+        </div>
+    </section>
+
+    <a href="#hero" class="back-to-top magnetic" aria-label="Back to Top">
+        <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100">
+            <circle class="progress-circle-bg" cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)"
+                stroke-width="2" />
+            <circle class="progress-circle-bar" cx="50" cy="50" r="45" fill="none" stroke="var(--accent-1)"
+                stroke-width="2" stroke-dasharray="283" stroke-dashoffset="283" />
+        </svg>
+        <span class="arrow-up">↑</span>
+    </a>
+
+    <script src="js/translations.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
