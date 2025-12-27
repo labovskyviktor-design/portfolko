@@ -74,22 +74,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initInteractions();
 
-    // --- 2. Smooth Scroll Reveal (Refined) ---
+    // --- 2. Smooth Scroll Reveal (Optimized & Snappy) ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('in-view');
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                // Stop observing after reveal for performance
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.skill-card-container, .project-card, h1, .badge').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = `all 0.8s cubic-bezier(0.23, 1, 0.32, 1) ${i * 0.1}s`;
-        observer.observe(el);
+    // Grouping by section to reset stagger index
+    const sections = document.querySelectorAll('section, header');
+    sections.forEach(section => {
+        const revealElements = section.querySelectorAll('.skill-card-container, .project-card, h1, .badge, .hero-tagline, .cta-group');
+        revealElements.forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `all 0.6s cubic-bezier(0.23, 1, 0.32, 1) ${i * 0.05}s`;
+            observer.observe(el);
+        });
     });
 
     // --- 3. Navbar, Back to Top & Progress Ring ---
