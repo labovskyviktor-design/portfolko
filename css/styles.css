@@ -1202,17 +1202,17 @@ section {
     /* FULL RESPONSIVE CARD REDESIGN - MOBILE ONLY */
     .skills-grid {
         grid-template-columns: 1fr !important;
-        gap: 2rem !important;
-        padding-bottom: 2rem;
+        gap: 2.5rem !important;
+        padding: 2rem 0;
     }
 
     .skill-card-container {
         max-width: 100% !important;
-        height: auto !important;
-        /* Allow dynamic height */
+        height: 380px !important;
+        /* UNIFIED HEIGHT */
         perspective: none !important;
         cursor: default !important;
-        margin-bottom: 1rem !important;
+        margin-bottom: 0 !important;
     }
 
     .skill-card {
@@ -1220,8 +1220,13 @@ section {
         transform-style: flat !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 0 !important;
-        height: auto !important;
+        height: 100% !important;
+        border-radius: 24px !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        backdrop-filter: blur(20px) !important;
     }
 
     .card-face {
@@ -1230,79 +1235,110 @@ section {
         height: auto !important;
         backface-visibility: visible !important;
         transform: none !important;
-        border-radius: 20px !important;
-        padding: 2rem !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 1.5rem !important;
         opacity: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
     }
 
-    /* Stack Front Face (Icon + Title) */
+    /* Top section with primary accent glow */
     .card-front {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-        padding-bottom: 1rem !important;
+        padding-top: 2.2rem !important;
+        padding-bottom: 0.5rem !important;
+        flex: 0 0 auto !important;
     }
 
     .card-front .icon {
-        font-size: 3.5rem !important;
-        height: 60px !important;
-        margin-bottom: 1rem !important;
+        font-size: 3.8rem !important;
+        height: 75px !important;
+        margin-bottom: 1.2rem !important;
+        filter: drop-shadow(0 0 15px var(--accent-1)) !important;
     }
 
     .card-front h3 {
-        font-size: 1.5rem !important;
+        font-size: 1.6rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.05em !important;
+        color: white !important;
         margin-bottom: 0 !important;
     }
 
-    /* Stack Back Face (Content) underneath */
+    /* Bottom section with content */
     .card-back {
-        background: rgba(255, 255, 255, 0.02) !important;
-        border-top: none !important;
-        border-top-left-radius: 0 !important;
-        border-top-right-radius: 0 !important;
-        padding-top: 1rem !important;
-        text-align: left !important;
-        display: block !important;
+        flex: 1 !important;
+        padding-top: 0.5rem !important;
+        padding-bottom: 2.5rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: space-between !important;
     }
 
     .card-back h3 {
         display: none !important;
-        /* Avoid duplicate title on mobile */
     }
 
     .card-back p {
         font-size: 1rem !important;
-        line-height: 1.5 !important;
-        opacity: 1 !important;
-        margin-bottom: 1.5rem !important;
+        line-height: 1.6 !important;
         color: var(--secondary) !important;
-    }
-
-    .card-back .skill-level,
-    .card-back p {
-        transform: none !important;
-        opacity: 1 !important;
+        margin-bottom: 1.5rem !important;
+        max-width: 90% !important;
     }
 
     .skill-level {
-        display: inline-block !important;
-        font-size: 0.8rem !important;
-        padding: 0.5rem 1.2rem !important;
-        margin-top: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.1em !important;
+        padding: 0.6rem 1.6rem !important;
+        border-radius: 100px !important;
+        background: rgba(99, 102, 241, 0.1) !important;
+        border: 1px solid var(--accent-1) !important;
+        color: var(--accent-1) !important;
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.3) !important;
+        text-transform: uppercase !important;
+        margin: auto auto 0 auto !important;
+        /* Perfect centering */
     }
 
-    /* Service features list fix for stacked view */
+    /* Special styling for Services cards */
     .service-features {
-        text-align: left !important;
-        margin-top: 1rem !important;
-        opacity: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .service-features li {
         font-size: 0.9rem !important;
-        margin-bottom: 0.5rem !important;
-        opacity: 0.8;
+        color: var(--secondary) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        padding-bottom: 0.2rem !important;
+    }
+
+    /* Glow variations based on accent colors */
+    .skill-card-container:nth-child(3n+1) .skill-card {
+        border-top: 3px solid var(--accent-1) !important;
+    }
+
+    .skill-card-container:nth-child(3n+2) .skill-card {
+        border-top: 3px solid var(--accent-2) !important;
+    }
+
+    .skill-card-container:nth-child(3n+3) .skill-card {
+        border-top: 3px solid var(--accent-3) !important;
     }
 
     /* Disable all hover triggers for mobile cards */
