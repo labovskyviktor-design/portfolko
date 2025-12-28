@@ -1137,6 +1137,37 @@ section {
         animation: auroraMove 60s linear infinite;
         opacity: 0.6;
     }
+
+    /* RESTORE MOBILE GRIDS/CARDS */
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1.5rem;
+        justify-items: center;
+        width: 100%;
+    }
+
+    .skill-card-container {
+        max-width: 180px;
+    }
+
+    .project-card,
+    .project-card:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        direction: ltr;
+        margin-bottom: 5rem;
+    }
+
+    .project-info h3 {
+        font-size: 2rem;
+    }
+
+    /* Hide Custom Cursor on Touch */
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1155,51 +1186,8 @@ section {
     .about-text {
         font-size: 1.1rem;
     }
-}
 
-/* Language Switcher - Top Right Corner */
-.lang-switcher {
-    position: fixed;
-    top: 2rem;
-    right: 4vw;
-    z-index: 9100;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    background: rgba(5, 5, 5, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 0.5rem 1rem;
-    border-radius: 100px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.lang-btn {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    transition: all 0.3s;
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-transform: uppercase;
-    border-radius: 50px;
-}
-
-.lang-btn:hover {
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.lang-btn.active {
-    color: white;
-    background: var(--accent-1);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-}
-
-.lang-separator {
-    color: rgba(255, 255, 255, 0.3);
-    font-weight: 300;
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

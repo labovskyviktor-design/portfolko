@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 3. Navbar & Mobile Menu Logic ---
+    const navbar = document.querySelector('.navbar');
     const menuTrigger = document.querySelector('.menu-trigger');
     const mobileNav = document.querySelector('.mobile-nav');
     const mobileLinks = document.querySelectorAll('.mobile-link');
