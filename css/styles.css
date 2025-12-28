@@ -996,6 +996,8 @@ section {
         /* Smaller min-height */
         display: flex !important;
         align-items: center !important;
+        touch-action: pan-y !important;
+        /* PREVENT HORIZONTAL STUTTER */
     }
 
     .nav-container {
