@@ -1139,7 +1139,7 @@ section {
 
     /* RESTORE MOBILE GRIDS/CARDS */
     .skills-grid {
-        display: grid;
+        display: grid !important;
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
         gap: 1.5rem !important;
         justify-items: center !important;
