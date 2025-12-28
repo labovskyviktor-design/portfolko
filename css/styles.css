@@ -676,7 +676,49 @@ section {
     z-index: 10;
 }
 
-/* Common Card Face Styles */
+/* Unique Skill Card Colors */
+.skill-react {
+    --skill-color: #61DAFB;
+}
+
+.skill-node {
+    --skill-color: #68A063;
+}
+
+.skill-three {
+    --skill-color: #ffffff;
+}
+
+.skill-wordpress {
+    --skill-color: #21759b;
+}
+
+.skill-tailwind {
+    --skill-color: #06B6D4;
+}
+
+.skill-webgl {
+    --skill-color: #990000;
+}
+
+.skill-design2d {
+    --skill-color: #F24E1E;
+}
+
+.skill-design3d {
+    --skill-color: #FF9900;
+}
+
+.skill-card-container[class*="skill-"] .card-face {
+    border-top: 3px solid var(--skill-color);
+}
+
+.skill-card-container[class*="skill-"]:hover .card-face {
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 20px rgba(var(--skill-color-rgb), 0.2);
+    border-color: var(--skill-color);
+}
+
+/* Enhanced Skill Card Face Styles */
 .card-face {
     position: absolute;
     width: 100%;
@@ -686,121 +728,79 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 1.5rem;
     background: var(--bg-card);
     border: 1px solid var(--border-light);
     border-radius: 20px;
     text-align: center;
-    transition: border-color 0.3s;
+    transition: all 0.5s var(--ease-out);
     transform-style: preserve-3d;
 }
 
-/* Unified Glow/Border Design for ALL Platforms */
-.skill-card-container:nth-child(3n+1) .card-face {
-    border-top: 3px solid var(--accent-1);
-}
-
-.skill-card-container:nth-child(3n+2) .card-face {
-    border-top: 3px solid var(--accent-2);
-}
-
-.skill-card-container:nth-child(3n+3) .card-face {
-    border-top: 3px solid var(--accent-3);
-}
-
-/* Enhanced desktop hover glow */
-.skill-card-container:hover .card-face {
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 20px rgba(99, 102, 241, 0.2);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.skill-card-container:nth-child(3n+2):hover .card-face {
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 20px rgba(6, 182, 212, 0.2);
-}
-
-.skill-card-container:nth-child(3n+3):hover .card-face {
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 20px rgba(236, 72, 153, 0.2);
-}
-
-/* Force content to pop out */
-.card-face h3,
-.card-face p,
-.card-face .icon,
-.card-face .skill-level {
-    transform: translateZ(60px);
-    -webkit-transform: translateZ(60px);
-    transition: opacity 0.3s;
-    /* Smooth visual transition */
-}
-
-/* Hide BACK content by default to prevent bleed-through via transparent front */
-.card-back h3,
-.card-back p,
-.card-back .skill-level {
-    opacity: 0;
-}
-
-/* Show BACK content only when flipped */
-.skill-card-container:hover .card-back h3,
-.skill-card-container:hover .card-back p,
-.skill-card-container:hover .card-back .skill-level {
-    opacity: 1;
-}
-
-/* Front Face */
-.card-front {
-    background: rgba(5, 5, 5, 0.9);
-    transform: rotateY(0deg);
-    z-index: 2;
-    /* Always on top in default state */
-    transition: transform 0.8s, opacity 0.3s;
-}
-
+/* Icons refinement */
 .card-front .icon {
-    font-size: 6rem;
-    line-height: 1;
-    margin: 0 auto 0.5rem auto;
-    filter: drop-shadow(0 0 15px var(--accent-1));
-    transition: all 0.5s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px var(--skill-color));
 }
 
-.card-front .icon svg {
-    width: auto !important;
-    height: 100px !important;
-    /* Match container height */
-    max-width: 100% !important;
-    stroke-width: 0;
-    /* Remove stroke for filled icons */
-}
-
-.skill-card-container:hover .icon {
-    transform: scale(1.2) translateZ(80px);
-    /* Enhance the pop-out on hover */
-    filter: drop-shadow(0 0 25px var(--accent-2));
-    color: var(--accent-2);
-}
-
-.card-front h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-}
-
-/* Back Face */
+/* Back Face - Rich Content */
 .card-back {
     transform: rotateY(180deg);
-    border-color: var(--accent-1);
-    background: linear-gradient(145deg, rgba(20, 20, 20, 1) 0%, rgba(30, 30, 40, 1) 100%);
-    z-index: 1;
+    background: linear-gradient(145deg, #0a0a0a 0%, #1a1a25 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.8rem;
+}
+
+.card-back h3 {
+    font-size: 1.1rem;
+    color: var(--skill-color);
+    margin-bottom: 0.5rem;
+}
+
+.card-back p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #999;
+    margin-bottom: 1rem;
+}
+
+.features-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.features-list span {
+    font-size: 0.65rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    color: #eee;
+    font-family: monospace;
+    transition: all 0.3s;
+}
+
+.skill-card-container:hover .features-list span {
+    border-color: var(--skill-color);
+    background: rgba(var(--skill-color-rgb), 0.05);
+}
+
+.skill-level {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--skill-color);
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--skill-color);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .card-back h3 {

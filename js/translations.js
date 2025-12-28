@@ -33,42 +33,50 @@ const translations = {
             react: {
                 title: 'React / Next.js',
                 desc: 'Vytváranie vysoko výkonných SSG a SSR aplikácií.',
-                level: 'Senior'
+                level: 'Senior',
+                features: ['Next.js App Router', 'Redux / Context API', 'Server Components']
             },
             node: {
                 title: 'Node.js',
                 desc: 'Škálovateľné backendové služby a REST API.',
-                level: 'Pokročilý'
+                level: 'Pokročilý',
+                features: ['Express / Fastify', 'REST & GraphQL', 'Microservices']
             },
             three: {
                 title: 'Three.js',
                 desc: 'Immerzívne 3D webové zážitky.',
-                level: 'Kreatívny'
+                level: 'Kreatívny',
+                features: ['WebGL Shaders', '3D Scene Design', 'GSAP Animations']
             },
             wordpress: {
                 title: 'WordPress',
                 desc: 'Vlastné témy, pluginy & headless CMS architektúry.',
-                level: 'Expert'
+                level: 'Expert',
+                features: ['Custom Themes', 'ACF / Gutenberg', 'Headless WP']
             },
             tailwind: {
                 title: 'Tailwind CSS',
                 desc: 'Rýchly, utility-first UI vývoj.',
-                level: 'Pro'
+                level: 'Pro',
+                features: ['Custom Config', 'Responsive Design', 'Design Systems']
             },
             webgl: {
                 title: 'WebGL',
                 desc: 'Hardvérovo akcelerovaná grafika.',
-                level: 'Experimentálny'
+                level: 'Experimentálny',
+                features: ['GLSL Programming', 'Raw Buffers', 'Post-processing']
             },
             design2d: {
                 title: '2D Dizajn',
                 desc: 'UI/UX, Figma & Vektorová grafika.',
-                level: 'Pro'
+                level: 'Pro',
+                features: ['Figma Prototyping', 'Vector Art', 'Typography']
             },
             design3d: {
                 title: '3D Dizajn',
                 desc: 'Blender, Spline & 3D modelovanie.',
-                level: 'Pro'
+                level: 'Pro',
+                features: ['Low Poly Modeling', 'PBR textúrovanie', '3D Web Assets']
             }
         },
         projects: {
@@ -137,42 +145,50 @@ const translations = {
             react: {
                 title: 'React / Next.js',
                 desc: 'Building high-performance SSGs and SSR apps.',
-                level: 'Senior'
+                level: 'Senior',
+                features: ['Next.js App Router', 'Redux / Context API', 'Server Components']
             },
             node: {
                 title: 'Node.js',
                 desc: 'Scalable backend services and REST APIs.',
-                level: 'Advanced'
+                level: 'Advanced',
+                features: ['Express / Fastify', 'REST & GraphQL', 'Microservices']
             },
             three: {
                 title: 'Three.js',
                 desc: 'Immersive 3D web experiences.',
-                level: 'Creative'
+                level: 'Creative',
+                features: ['WebGL Shaders', '3D Scene Design', 'GSAP Animations']
             },
             wordpress: {
                 title: 'WordPress',
                 desc: 'Custom themes, plugins & headless CMS architectures.',
-                level: 'Expert'
+                level: 'Expert',
+                features: ['Custom Themes', 'ACF / Gutenberg', 'Headless WP']
             },
             tailwind: {
                 title: 'Tailwind CSS',
                 desc: 'Rapid, utility-first UI development.',
-                level: 'Pro'
+                level: 'Pro',
+                features: ['Custom Config', 'Responsive Design', 'Design Systems']
             },
             webgl: {
                 title: 'WebGL',
                 desc: 'Hardware-accelerated graphics.',
-                level: 'Experimental'
+                level: 'Experimental',
+                features: ['GLSL Programming', 'Raw Buffers', 'Post-processing']
             },
             design2d: {
                 title: '2D Design',
                 desc: 'UI/UX, Figma & Vector Graphics.',
-                level: 'Pro'
+                level: 'Pro',
+                features: ['Figma Prototyping', 'Vector Art', 'Typography']
             },
             design3d: {
                 title: '3D Design',
                 desc: 'Blender, Spline & 3D Modeling.',
-                level: 'Pro'
+                level: 'Pro',
+                features: ['Low Poly Modeling', 'PBR Texturing', '3D Web Assets']
             }
         },
         projects: {
@@ -218,8 +234,18 @@ function setLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const keys = el.getAttribute('data-i18n').split('.');
         let value = translations[lang];
-        for (const key of keys) value = value[key];
-        if (value) el.innerHTML = value;
+        for (const key of keys) {
+            if (value) value = value[key];
+        }
+
+        if (value) {
+            if (Array.isArray(value)) {
+                // Handle features list specifically
+                el.innerHTML = value.map(item => `<span>${item}</span>`).join('');
+            } else {
+                el.innerHTML = value;
+            }
+        }
     });
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
