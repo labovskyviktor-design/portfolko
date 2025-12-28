@@ -980,7 +980,8 @@ section {
     }
 
     .hero-container {
-        padding-top: 15vh;
+        padding-top: 5vh !important;
+        /* REDUCED FROM 15VH */
     }
 }
 
@@ -988,12 +989,21 @@ section {
 
     /* Navbar & Mobile Menu */
     .navbar {
-        padding: 0.75rem 1.5rem !important;
-        /* Reduced padding to fix gaps */
+        padding: 0.5rem 1.5rem !important;
+        /* Tighter padding */
         height: auto !important;
-        min-height: 60px;
-        display: flex;
-        align-items: center;
+        min-height: 50px !important;
+        /* Smaller min-height */
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .nav-container {
+        display: flex !important;
+        justify-content: flex-end !important;
+        width: 100% !important;
+        align-items: center !important;
+        height: 100% !important;
     }
 
     .nav-links {
@@ -1070,10 +1080,11 @@ section {
         color: var(--accent-1);
     }
 
-    /* Hero Section - iOS Safe */
+    /* Hero Section - iOS Safe & Tight */
     .hero-section {
         min-height: 100dvh;
-        padding: 120px 0 60px;
+        padding: 85px 0 40px !important;
+        /* REDUCED GAP UNDER NAVBAR */
     }
 
     .hero-title {
