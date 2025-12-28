@@ -980,8 +980,8 @@ section {
     }
 
     .hero-container {
-        padding-top: 5vh !important;
-        /* REDUCED FROM 15VH */
+        padding-top: 2vh !important;
+        /* FURTHER REDUCED FROM 5VH */
     }
 }
 
@@ -1000,7 +1000,8 @@ section {
 
     .nav-container {
         display: flex !important;
-        justify-content: flex-end !important;
+        justify-content: center !important;
+        /* CENTERED AS REQUESTED */
         width: 100% !important;
         align-items: center !important;
         height: 100% !important;
@@ -1083,7 +1084,7 @@ section {
     /* Hero Section - iOS Safe & Tight */
     .hero-section {
         min-height: 100dvh;
-        padding: 85px 0 40px !important;
+        padding: 60px 0 40px !important;
         /* REDUCED GAP UNDER NAVBAR */
     }
 
