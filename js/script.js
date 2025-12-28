@@ -99,8 +99,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. Navbar, Back to Top & Progress Ring ---
+    // --- 3. Navbar & Mobile Menu Logic ---
     const navbar = document.querySelector('.navbar');
+    const menuTrigger = document.querySelector('.menu-trigger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    if (menuTrigger) {
+        menuTrigger.addEventListener('click', () => {
+            menuTrigger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+    }
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menuTrigger.classList.remove('active');
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
     const backToTop = document.querySelector('.back-to-top');
     const progressBar = document.querySelector('.progress-circle-bar');
     const progressTotal = 283;
