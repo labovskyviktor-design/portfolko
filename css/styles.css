@@ -799,9 +799,9 @@ section {
 
 /* 3D Flip Card Container */
 .skill-card-container {
-    perspective: 1000px;
+    perspective: 2000px;
+    /* Increased for better depth and sharpness */
     height: 300px;
-    /* Fixed height for square-ish aspect */
     cursor: pointer;
     position: relative;
     z-index: 10;
@@ -816,7 +816,8 @@ section {
     background: transparent;
     border: none;
     padding: 0;
-    will-change: transform;
+    transform: translateZ(0.1px);
+    /* Base layer sharpness */
 }
 
 .skill-card-container:hover .skill-card {
@@ -834,37 +835,45 @@ section {
     z-index: 10;
 }
 
-/* Unique Skill Card Colors */
+/* Unique Skill Card Colors - No overlap with Services */
 .skill-react {
-    --skill-color: #61DAFB;
+    --skill-color: #00d8ff;
+    --skill-color-rgb: 0, 216, 255;
 }
 
 .skill-node {
-    --skill-color: #68A063;
+    --skill-color: #4ade80;
+    --skill-color-rgb: 74, 222, 128;
 }
 
 .skill-three {
-    --skill-color: #ffffff;
+    --skill-color: #fbbf24;
+    --skill-color-rgb: 251, 191, 36;
 }
 
 .skill-wordpress {
-    --skill-color: #21759b;
+    --skill-color: #3b82f6;
+    --skill-color-rgb: 59, 130, 246;
 }
 
 .skill-tailwind {
-    --skill-color: #06B6D4;
+    --skill-color: #2dd4bf;
+    --skill-color-rgb: 45, 212, 191;
 }
 
 .skill-webgl {
-    --skill-color: #990000;
+    --skill-color: #f97316;
+    --skill-color-rgb: 249, 115, 22;
 }
 
 .skill-design2d {
-    --skill-color: #F24E1E;
+    --skill-color: #ef4444;
+    --skill-color-rgb: 239, 68, 68;
 }
 
 .skill-design3d {
-    --skill-color: #FF9900;
+    --skill-color: #a855f7;
+    --skill-color-rgb: 168, 85, 247;
 }
 
 .skill-card-container[class*="skill-"] .card-face {
@@ -896,8 +905,8 @@ section {
     transform-style: preserve-3d;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transform: translateZ(0);
-    /* Force GPU */
+    transform: translateZ(0.05px);
+    /* Micro-offset for razor sharpness */
 }
 
 /* Icons refinement */
