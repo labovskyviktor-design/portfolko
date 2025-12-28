@@ -1354,22 +1354,30 @@ section {
         display: flex !important;
         flex-direction: column !important;
         height: 100% !important;
-        background: rgba(255, 255, 255, 0.05) !important;
+        background: var(--bg-card) !important;
+        /* Unified solid background */
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 20px !important;
         -webkit-tap-highlight-color: transparent !important;
+        overflow: visible !important;
+        /* Allow glow to bleed out */
     }
 
-    /* Glow Restoration for Skills */
+    /* Glow Restoration for ALL cards on mobile */
     .skill-card-container[class*="skill-"] .skill-card {
         border-top: 3px solid var(--skill-color) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(var(--skill-color-rgb), 0.2) !important;
-        transition: all 0.3s ease !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(var(--skill-color-rgb), 0.3) !important;
     }
 
-    .skill-card-container[class*="skill-"]:active .skill-card {
-        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(var(--skill-color-rgb), 0.4) !important;
+    .service-card-container .service-card {
+        border-top: 3px solid var(--accent-color) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(var(--accent-color), 0.3) !important;
+    }
+
+    .skill-card-container:active .skill-card,
+    .service-card-container:active .service-card {
         transform: scale(0.98) !important;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6) !important;
     }
 
     .card-face {
@@ -1401,11 +1409,22 @@ section {
         text-align: center !important;
     }
 
-    .service-icon,
     .icon {
         font-size: 3.5rem !important;
         margin-bottom: 1rem !important;
         filter: drop-shadow(0 0 10px var(--skill-color)) !important;
+    }
+
+    .service-icon {
+        font-size: 4rem !important;
+        /* Slightly larger for services */
+        margin-bottom: 1.5rem !important;
+        filter: drop-shadow(0 0 15px var(--accent-color)) !important;
+    }
+
+    /* Disable spotlight on mobile to prevent band glitches */
+    .spotlight-overlay {
+        display: none !important;
     }
 
     .service-card .card-back p,
