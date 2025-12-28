@@ -593,66 +593,7 @@ section {
     line-height: 1.6;
 }
 
-/* Cleanup old 3D styles */
-.visual-3d,
-.visual-3d {
-    display: none;
-}
-
-.code-float {
-    display: none;
-}
-
-@media(max-width: 768px) {
-    .hero-title {
-        font-size: 15vw;
-    }
-
-    .hero-container {
-        align-items: flex-start;
-        text-align: left;
-    }
-}
-
-.visual-3d::before,
-.visual-3d::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-}
-
-.visual-3d::before {
-    width: 140%;
-    height: 60%;
-    transform: translate(-50%, -50%) rotateX(60deg);
-}
-
-.visual-3d::after {
-    width: 60%;
-    height: 140%;
-    transform: translate(-50%, -50%) rotateY(60deg);
-}
-
-.code-float {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    padding: 1rem;
-    border: 1px solid var(--border-light);
-    backdrop-filter: blur(5px);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    animation: float 4s ease-in-out infinite;
-    white-space: pre;
-    z-index: 2;
-}
-
+/* Old visual styles removed to prevent artifacts */
 .about-text {
     font-size: 2.5rem;
     /* Larger for impact */
@@ -1197,8 +1138,23 @@ section {
     .skill-level {
         padding: 0.3rem 0.6rem !important;
         font-size: 0.65rem !important;
-        margin-top: auto !important;
-        /* Push to bottom */
+        margin-top: 1rem !important;
+        align-self: center !important;
+    }
+
+    /* Fix service features centering */
+    .service-features {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0.5rem 0 0 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .service-features li {
+        margin-bottom: 0.3rem !important;
+        font-size: 0.75rem !important;
+        color: var(--secondary);
     }
 
     .project-card,
@@ -1212,6 +1168,11 @@ section {
 
     .project-info h3 {
         font-size: 1.8rem !important;
+    }
+
+    /* Disable shadow artifacts on mobile icons */
+    .icon {
+        filter: none !important;
     }
 
     /* Hide Custom Cursor on Touch */
@@ -1239,7 +1200,12 @@ section {
     }
 
     .skills-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .skill-card-container {
+        max-width: 250px !important;
+        margin: 0 auto !important;
     }
 }
 
