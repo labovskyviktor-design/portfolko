@@ -650,6 +650,8 @@ section {
     /* Indigo-400 */
     --service-apps: #34d399;
     /* Emerald-400 */
+    --service-desktop: #f472b6;
+    /* Pink-400 */
 }
 
 .service-card {
@@ -666,7 +668,7 @@ section {
 }
 
 .service-card .card-face {
-    background: rgba(10, 10, 15, 0.8);
+    background: rgba(10, 10, 15, 0.85);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 3rem;
@@ -683,6 +685,10 @@ section {
 
 .service-apps {
     --accent-color: var(--service-apps);
+}
+
+.service-desktop {
+    --accent-color: var(--service-desktop);
 }
 
 .service-card-container[class*="service-"] .card-face {
@@ -715,31 +721,33 @@ section {
 
 /* Service Back Content */
 .service-card .card-back {
-    padding: 2.5rem;
-    text-align: left;
-    align-items: flex-start;
+    padding: 2.2rem;
+    text-align: center;
+    align-items: center;
+    /* Center for consistency with front */
     justify-content: space-between;
 }
 
 .service-card .card-back h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--accent-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .service-features {
     list-style: none;
     padding: 0;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
 }
 
 .service-features li {
-    font-size: 0.95rem;
-    color: #ccc;
-    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-bottom: 0.6rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    gap: 0.8rem;
 }
 
 .service-features li::before {
@@ -749,25 +757,33 @@ section {
 }
 
 .service-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     width: 100%;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 100px;
     text-align: center;
-    transition: all 0.3s;
+    transition: all 0.4s var(--ease-out);
+    margin-top: 1rem;
 }
 
 .service-card-container:hover .service-cta {
     background: var(--accent-color);
     border-color: var(--accent-color);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-color);
+    transform: translateY(-3px);
 }
 
 .service-cta span {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 700;
     color: #fff;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     transition: color 0.3s;
 }
 

@@ -26,6 +26,13 @@ const translations = {
                 feature1: 'React / Next.js',
                 feature2: 'SaaS vývoj',
                 feature3: 'API integrácia'
+            },
+            desktopApps: {
+                title: 'Desktopové aplikácie',
+                desc: 'Výkonný softvér pre Windows a macOS vyvinutý pre špecifické podnikové potreby a automatizáciu.',
+                feature1: 'Cross-platform vývoj',
+                feature2: 'Systémová integrácia',
+                feature3: 'Vysoký výkon'
             }
         },
         skills: {
@@ -138,6 +145,13 @@ const translations = {
                 feature1: 'React / Next.js',
                 feature2: 'SaaS Development',
                 feature3: 'API Integration'
+            },
+            desktopApps: {
+                title: 'Desktop Apps',
+                desc: 'Powerful software for Windows and macOS built for specific business needs and automation.',
+                feature1: 'Cross-platform Dev',
+                feature2: 'System Integration',
+                feature3: 'High Performance'
             }
         },
         skills: {
