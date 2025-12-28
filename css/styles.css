@@ -1358,12 +1358,16 @@ section {
         display: flex !important;
         flex-direction: column !important;
         height: 100% !important;
-        background: var(--bg-card) !important;
+        background: #0a0a0f !important;
+        /* Solid background for stability */
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 20px !important;
         -webkit-tap-highlight-color: transparent !important;
-        overflow: visible !important;
-        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        overflow: hidden !important;
+        /* Prevent layer bleed */
+        will-change: auto !important;
+        /* Disable forced GPU layering */
+        transition: background 0.3s ease !important;
     }
 
     /* Glow Restoration for ALL cards on mobile */
@@ -1379,8 +1383,10 @@ section {
 
     .skill-card-container:active .skill-card,
     .service-card-container:active .service-card {
-        transform: scale(0.98) !important;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6) !important;
+        transform: none !important;
+        /* Kill scale transform to stop glitch */
+        background: #111 !important;
+        /* Visual feedback via color only */
     }
 
     .card-face {
@@ -1410,16 +1416,23 @@ section {
         padding-bottom: 2.5rem !important;
     }
 
+    .card-front h3 {
+        display: none !important;
+        /* Remove duplicate title for cleaner rendering */
+    }
+
     .icon {
         font-size: 3.5rem !important;
         margin-bottom: 1rem !important;
-        filter: drop-shadow(0 0 10px var(--skill-color)) !important;
+        filter: none !important;
+        /* Kill filters on Emoji to stop disappearing act */
     }
 
     .service-icon {
         font-size: 4rem !important;
         margin-bottom: 1.5rem !important;
-        filter: drop-shadow(0 0 15px var(--accent-color)) !important;
+        filter: none !important;
+        /* Stabilize service icons */
     }
 
     .service-card .card-back p,
