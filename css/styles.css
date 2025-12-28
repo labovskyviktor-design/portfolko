@@ -1350,32 +1350,101 @@ section {
         margin-bottom: 0.3rem !important;
     }
 
-    .card-face p {
-        font-size: 0.75rem !important;
-        line-height: 1.2 !important;
+    /* Services Mobile Optimization */
+    .services-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+
+    .service-card-container {
+        height: 380px !important;
+    }
+
+    .service-card .card-face {
+        padding: 2rem !important;
+        border-radius: 20px !important;
+    }
+
+    .service-icon {
+        font-size: 3.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .service-card .card-back h3 {
+        font-size: 1.2rem !important;
         margin-bottom: 0.5rem !important;
     }
 
-    .skill-level {
-        padding: 0.3rem 0.6rem !important;
-        font-size: 0.65rem !important;
-        margin-top: 1rem !important;
-        align-self: center !important;
-    }
-
-    /* Fix service features centering */
-    .service-features {
-        list-style: none !important;
-        padding: 0 !important;
-        margin: 0.5rem 0 0 0 !important;
-        width: 100% !important;
-        text-align: center !important;
+    .service-card .card-back p {
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 0.5rem !important;
     }
 
     .service-features li {
-        margin-bottom: 0.3rem !important;
+        font-size: 0.8rem !important;
+        margin-bottom: 0.4rem !important;
+        gap: 0.5rem !important;
+    }
+
+    .service-cta {
+        padding: 0.8rem !important;
+        margin-top: 0.5rem !important;
+    }
+
+    .service-cta span {
         font-size: 0.75rem !important;
-        color: var(--secondary);
+    }
+
+    /* Skills Mobile Optimization Refinement */
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    .skill-card-container {
+        height: 220px !important;
+    }
+
+    .card-front .icon {
+        font-size: 3rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .card-front h3 {
+        font-size: 0.9rem !important;
+    }
+
+    .card-face {
+        padding: 1rem !important;
+        border-radius: 15px !important;
+    }
+
+    .card-back h3 {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    .card-back p {
+        display: none !important;
+        /* Hide long desc on mobile skills for space */
+    }
+
+    .features-list {
+        margin-bottom: 0.5rem !important;
+        gap: 0.3rem !important;
+    }
+
+    .features-list span {
+        font-size: 0.55rem !important;
+        padding: 0.2rem 0.4rem !important;
+    }
+
+    .skill-level {
+        padding: 0.2rem 0.5rem !important;
+        font-size: 0.6rem !important;
+        letter-spacing: 0.05rem !important;
+        margin-top: 0 !important;
     }
 
     .project-card,
@@ -1383,7 +1452,7 @@ section {
         grid-template-columns: 1fr !important;
         gap: 2rem !important;
         direction: ltr !important;
-        margin-bottom: 5rem !important;
+        margin-bottom: 4rem !important;
         padding-left: 0 !important;
     }
 
@@ -1392,7 +1461,8 @@ section {
     }
 
     /* Disable shadow artifacts on mobile icons */
-    .icon {
+    .icon,
+    .service-icon {
         filter: none !important;
     }
 
