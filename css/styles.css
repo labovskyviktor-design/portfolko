@@ -1204,9 +1204,13 @@ section {
         grid-template-columns: 1fr !important;
         gap: 2.5rem !important;
         padding: 2rem 0;
+        justify-items: stretch !important;
+        /* UNIFORM STRETCH */
     }
 
     .skill-card-container {
+        width: 100% !important;
+        /* FULL UNIFORM WIDTH */
         max-width: 100% !important;
         height: 480px !important;
         /* SAFE UNIFIED HEIGHT */
@@ -1312,8 +1316,7 @@ section {
         /* FORCED VISIBILITY */
     }
 
-    /* Force all text content to be visible on scroll */
-    .card-back h3,
+    /* Force text content visibility BUT keep h3 hidden to avoid duplication */
     .card-back p,
     .service-features,
     .service-features li {
@@ -1322,6 +1325,11 @@ section {
         transform: none !important;
         display: flex !important;
         flex-direction: column !important;
+    }
+
+    .card-back h3 {
+        display: none !important;
+        /* STRICTLY HIDE DUPLICATE */
     }
 
     /* Special styling for Services cards */
