@@ -1326,12 +1326,12 @@ section {
         z-index: -1;
     }
 
-    /* --- DEEP MOBILE FIX START --- */
+    /* --- DEEP MOBILE FIX (UNIFIED & GLITCH-FREE) --- */
     .services-grid,
     .skills-grid {
         grid-template-columns: 1fr !important;
-        gap: 2rem !important;
-        padding: 1.5rem 0 !important;
+        gap: 2.5rem !important;
+        padding: 2rem 0 !important;
     }
 
     .service-card-container,
@@ -1339,12 +1339,16 @@ section {
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
-        min-height: 380px !important;
+        min-height: 400px !important;
         perspective: none !important;
+        /* KILL PERSPECTIVE */
+        transform: none !important;
+        /* KILL MAGNETIC/IN-VIEW TRANSFORMS */
+        opacity: 1 !important;
     }
 
     .skill-card-container {
-        min-height: 250px !important;
+        min-height: 280px !important;
     }
 
     .service-card,
@@ -1355,12 +1359,11 @@ section {
         flex-direction: column !important;
         height: 100% !important;
         background: var(--bg-card) !important;
-        /* Unified solid background */
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 20px !important;
         -webkit-tap-highlight-color: transparent !important;
         overflow: visible !important;
-        /* Allow glow to bleed out */
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
     }
 
     /* Glow Restoration for ALL cards on mobile */
@@ -1398,15 +1401,13 @@ section {
     }
 
     .card-front {
-        padding-top: 2rem !important;
+        padding-top: 2.5rem !important;
         padding-bottom: 0.5rem !important;
     }
 
     .card-back {
         padding-top: 0 !important;
         padding-bottom: 2.5rem !important;
-        transform: none !important;
-        text-align: center !important;
     }
 
     .icon {
@@ -1417,28 +1418,17 @@ section {
 
     .service-icon {
         font-size: 4rem !important;
-        /* Slightly larger for services */
         margin-bottom: 1.5rem !important;
         filter: drop-shadow(0 0 15px var(--accent-color)) !important;
     }
 
-    /* Disable spotlight on mobile to prevent band glitches */
-    .spotlight-overlay {
-        display: none !important;
-    }
-
     .service-card .card-back p,
     .skill-card .card-back p {
-        font-size: 0.85rem !important;
-        line-height: 1.5 !important;
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
         display: block !important;
         color: var(--secondary) !important;
         margin-bottom: 1.2rem !important;
-    }
-
-    .skill-card .card-back p {
-        display: block !important;
-        /* Restored text */
         max-width: 90% !important;
     }
 
@@ -1467,252 +1457,15 @@ section {
         margin-bottom: 4rem !important;
     }
 
+    /* Disable all problematic mobile-only animations/glitch sources */
+    .spotlight-overlay,
     .cursor-dot,
     .cursor-outline {
         display: none !important;
     }
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 0 1.5rem;
-    }
 
-    .hero-title {
-        font-size: 18vw;
-    }
-
-    .section-title {
-        font-size: 8vw;
-    }
-
-    .about-text {
-        font-size: 1rem;
-    }
-
-    /* FULL RESPONSIVE CARD REDESIGN - MOBILE ONLY */
-    .skills-grid {
-        grid-template-columns: 1fr !important;
-        gap: 2.5rem !important;
-        padding: 2rem 0;
-        justify-items: stretch !important;
-        /* UNIFORM STRETCH */
-    }
-
-    .skill-card-container {
-        width: 100% !important;
-        /* FULL UNIFORM WIDTH */
-        max-width: 100% !important;
-        height: 480px !important;
-        /* SAFE UNIFIED HEIGHT */
-        perspective: none !important;
-        cursor: default !important;
-        margin-bottom: 0 !important;
-    }
-
-    .skill-card {
-        transform: none !important;
-        transform-style: flat !important;
-        display: flex !important;
-        flex-direction: column !important;
-        height: 100% !important;
-        border-radius: 24px !important;
-        overflow: visible !important;
-        /* Allow content to breathe */
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-        background: rgba(255, 255, 255, 0.03) !important;
-        backdrop-filter: blur(20px) !important;
-    }
-
-    .card-face {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-        backface-visibility: visible !important;
-        transform: none !important;
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
-        padding: 1.5rem !important;
-        opacity: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
-    }
-
-    /* Top section with primary accent glow */
-    .card-front {
-        padding-top: 2.5rem !important;
-        padding-bottom: 0.5rem !important;
-        flex: 0 0 auto !important;
-    }
-
-    .card-front .icon {
-        font-size: 3.2rem !important;
-        height: 60px !important;
-        margin-bottom: 1rem !important;
-        filter: drop-shadow(0 0 15px var(--accent-1)) !important;
-    }
-
-    .card-front h3 {
-        font-size: 1.6rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.05em !important;
-        color: white !important;
-        margin-bottom: 0 !important;
-    }
-
-    /* Bottom section with content */
-    .card-back {
-        flex: 1 !important;
-        padding-top: 0.2rem !important;
-        padding-bottom: 2rem !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-    }
-
-    .card-back h3 {
-        display: none !important;
-    }
-
-    .card-back p {
-        font-size: 1rem !important;
-        line-height: 1.7 !important;
-        /* LUXE SPACING */
-        color: var(--secondary) !important;
-        margin-bottom: 1.2rem !important;
-        max-width: 90% !important;
-        letter-spacing: 0.01em !important;
-    }
-
-    .skill-level {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        font-size: 0.75rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.15em !important;
-        /* PREMIUM TRACKING */
-        padding: 0.7rem 2rem !important;
-        border-radius: 100px !important;
-        background: rgba(99, 102, 241, 0.1) !important;
-        border: 1px solid var(--accent-1) !important;
-        color: var(--accent-1) !important;
-        box-shadow: 0 0 20px rgba(99, 102, 241, 0.2) !important;
-        text-transform: uppercase !important;
-        margin: 0.5rem auto 0 auto !important;
-        opacity: 1 !important;
-        transition: transform 0.3s var(--ease-out);
-    }
-
-    /* Force text content visibility BUT keep h3 hidden to avoid duplication */
-    .card-back p,
-    .service-features,
-    .service-features li {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    .card-back h3 {
-        display: none !important;
-        /* STRICTLY HIDE DUPLICATE */
-    }
-
-    /* Special styling for Services cards */
-    .service-features {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0.5rem !important;
-        list-style: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
-    .service-features li {
-        font-size: 0.95rem !important;
-        color: var(--secondary) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-        padding: 0.4rem 0 !important;
-        letter-spacing: 0.02em !important;
-    }
-
-    /* Glow variations - Unified via main section, keeping overrides for safety */
-    .skill-card-container:nth-child(3n+1) .skill-card {
-        border-top: 3px solid var(--accent-1) !important;
-    }
-
-    .skill-card-container:nth-child(3n+2) .skill-card {
-        border-top: 3px solid var(--accent-2) !important;
-    }
-
-    .skill-card-container:nth-child(3n+3) .skill-card {
-        border-top: 3px solid var(--accent-3) !important;
-    }
-
-    /* Fix mobile smoothness and plynulost */
-    .mobile-nav {
-        transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
-    }
-
-    .skill-card-container {
-        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s var(--ease-out);
-        transform: perspective(1000px) rotateX(10deg) translateY(40px) !important;
-        opacity: 0 !important;
-    }
-
-    .skill-card-container.in-view {
-        transform: perspective(1000px) rotateX(0deg) translateY(0) !important;
-        opacity: 1 !important;
-        animation: cardFloatMobile 6s ease-in-out infinite alternate !important;
-        animation-delay: 0.5s !important;
-    }
-
-    @keyframes cardFloatMobile {
-        0% {
-            transform: translateY(0) rotateX(0);
-        }
-
-        100% {
-            transform: translateY(-8px) rotateX(1deg);
-        }
-    }
-
-    /* Micro-interactions for inner elements */
-    .in-view .card-front .icon {
-        animation: iconPulse 4s ease-in-out infinite alternate !important;
-    }
-
-    @keyframes iconPulse {
-        0% {
-            transform: scale(1) translateZ(60px);
-            filter: drop-shadow(0 0 10px var(--accent-1));
-        }
-
-        100% {
-            transform: scale(1.05) translateZ(80px);
-            filter: drop-shadow(0 0 25px var(--accent-1));
-        }
-    }
-
-    /* Disable all hover triggers for mobile cards */
-    .skill-card-container:hover .skill-card {
-        transform: none !important;
-    }
-
-    .skill-card-container:hover .card-front {
-        opacity: 1 !important;
-        z-index: 1 !important;
-    }
-}
 
 /* --- Language Switcher - GLOBAL STYLES (RESTORED) --- */
 .lang-switcher {
