@@ -71,7 +71,37 @@ const translations = {
                 level: 'Pro'
             }
         },
-        projects: { title: 'Vybrané práce' },
+        projects: {
+            title: 'Vybrané práce',
+            p1: {
+                title: '3DTlačiareň.sk',
+                desc: 'Prémiová platforma pre 3D tlač a priemyselné modelovanie. Komplexné riešenia od prototypovania až po sériovú výrobu.',
+                tag1: 'E-commerce',
+                tag2: '3D Tlač',
+                tag3: 'Manufacturing'
+            },
+            p2: {
+                title: 'Prekladač Článkov',
+                desc: 'Vysoko výkonný nástroj pre lingvistický preklad článkov medzi slovenčinou a češtinou s dôrazom na kontext.',
+                tag1: 'Web Tool',
+                tag2: 'JavaScript',
+                tag3: 'Linguistics'
+            },
+            p3: {
+                title: 'Thesis Agent',
+                desc: 'AI-poháňaný výskumný asistent pre študentov, automatizujúci štruktúrovanie záverečných prác a rešerš.',
+                tag1: 'AI & Agents',
+                tag2: 'Automation',
+                tag3: 'Python'
+            },
+            p4: {
+                title: 'Energetický Audit',
+                desc: 'Profesionálny inžiniersky nástroj na výpočet energetickej certifikácie budov a analýzu úspor.',
+                tag1: 'Engineering',
+                tag2: 'Data Analysis',
+                tag3: 'Sustainability'
+            }
+        },
         contact: { title: 'Kontakt' }
     },
     en: {
@@ -145,7 +175,37 @@ const translations = {
                 level: 'Pro'
             }
         },
-        projects: { title: 'Selected Works' },
+        projects: {
+            title: 'Selected Works',
+            p1: {
+                title: '3DTlačiareň.sk',
+                desc: 'Premium platform for 3D printing and industrial modeling. Solutions from prototyping to mass production.',
+                tag1: 'E-commerce',
+                tag2: '3D Printing',
+                tag3: 'Manufacturing'
+            },
+            p2: {
+                title: 'Article Translator',
+                desc: 'High-performance linguistic tool for article translation between Slovak and Czech with context emphasis.',
+                tag1: 'Web Tool',
+                tag2: 'JavaScript',
+                tag3: 'Linguistics'
+            },
+            p3: {
+                title: 'Thesis Agent',
+                desc: 'AI-powered research assistant for students, automating thesis structuring and bibliography.',
+                tag1: 'AI & Agents',
+                tag2: 'Automation',
+                tag3: 'Python'
+            },
+            p4: {
+                title: 'Energy Audit',
+                desc: 'Professional engineering tool for building energy certification and savings analysis.',
+                tag1: 'Engineering',
+                tag2: 'Data Analysis',
+                tag3: 'Sustainability'
+            }
+        },
         contact: { title: 'Contact' }
     }
 };
