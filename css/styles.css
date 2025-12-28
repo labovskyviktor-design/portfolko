@@ -1199,13 +1199,120 @@ section {
         font-size: 1rem;
     }
 
+    /* FULL RESPONSIVE CARD REDESIGN - MOBILE ONLY */
     .skills-grid {
         grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        padding-bottom: 2rem;
     }
 
     .skill-card-container {
-        max-width: 250px !important;
-        margin: 0 auto !important;
+        max-width: 100% !important;
+        height: auto !important;
+        /* Allow dynamic height */
+        perspective: none !important;
+        cursor: default !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .skill-card {
+        transform: none !important;
+        transform-style: flat !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        height: auto !important;
+    }
+
+    .card-face {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        backface-visibility: visible !important;
+        transform: none !important;
+        border-radius: 20px !important;
+        padding: 2rem !important;
+        opacity: 1 !important;
+    }
+
+    /* Stack Front Face (Icon + Title) */
+    .card-front {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .card-front .icon {
+        font-size: 3.5rem !important;
+        height: 60px !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .card-front h3 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Stack Back Face (Content) underneath */
+    .card-back {
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-top: none !important;
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+        padding-top: 1rem !important;
+        text-align: left !important;
+        display: block !important;
+    }
+
+    .card-back h3 {
+        display: none !important;
+        /* Avoid duplicate title on mobile */
+    }
+
+    .card-back p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        opacity: 1 !important;
+        margin-bottom: 1.5rem !important;
+        color: var(--secondary) !important;
+    }
+
+    .card-back .skill-level,
+    .card-back p {
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    .skill-level {
+        display: inline-block !important;
+        font-size: 0.8rem !important;
+        padding: 0.5rem 1.2rem !important;
+        margin-top: 0 !important;
+    }
+
+    /* Service features list fix for stacked view */
+    .service-features {
+        text-align: left !important;
+        margin-top: 1rem !important;
+        opacity: 1 !important;
+    }
+
+    .service-features li {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.5rem !important;
+        opacity: 0.8;
+    }
+
+    /* Disable all hover triggers for mobile cards */
+    .skill-card-container:hover .skill-card {
+        transform: none !important;
+    }
+
+    .skill-card-container:hover .card-front {
+        opacity: 1 !important;
+        z-index: 1 !important;
     }
 }
 
