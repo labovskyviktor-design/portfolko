@@ -1115,57 +1115,27 @@ section {
         font-size: 0.9rem;
     }
 
-    /* Adjust Language Switcher on Mobile to avoid collision */
+    /* Adjust Language Switcher on Mobile - Stay at bottom */
     .lang-switcher {
-        top: auto;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        right: auto;
+        top: auto !important;
+        bottom: 2rem !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.65rem;
     }
 
-    /* Slow down and simplify background on mobile */
+    /* Slow down and simplify background on mobile - Prevent overflow */
     body::after {
-        width: 150%;
-        height: 150%;
-        top: -25%;
-        left: -25%;
-        animation: auroraMove 60s linear infinite;
-        /* Much slower */
-        opacity: 0.6;
-    }
-
-    /* Grids with centering */
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 1.5rem;
-        justify-items: center;
-        /* Center items in their cells */
         width: 100%;
-    }
-
-    .skill-card-container {
-        max-width: 180px;
-        /* Slightly smaller on mobile to fit nicely */
-    }
-
-    .project-card,
-    .project-card:nth-child(even) {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        direction: ltr;
-        margin-bottom: 5rem;
-    }
-
-    .project-info h3 {
-        font-size: 2rem;
-    }
-
-    /* Hide Custom Cursor on Touch */
-    .cursor-dot,
-    .cursor-outline {
-        display: none !important;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform: scale(1.5);
+        /* Scale instead of width to keep it clipped better */
+        animation: auroraMove 60s linear infinite;
+        opacity: 0.6;
     }
 }
 
@@ -1184,10 +1154,6 @@ section {
 
     .about-text {
         font-size: 1.1rem;
-    }
-
-    .lang-switcher {
-        top: 1.5rem;
     }
 }
 
