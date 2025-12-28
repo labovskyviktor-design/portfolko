@@ -144,6 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.querySelector('.progress-circle-bar');
     const progressTotal = 283;
 
+    // --- 5. Content Protection (No Copy/Selection) ---
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'u' || e.key === 'a')) {
+            e.preventDefault();
+        }
+    });
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');

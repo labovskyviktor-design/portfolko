@@ -59,14 +59,19 @@ body {
     background-color: var(--bg-dark);
     color: var(--primary);
     font-family: var(--font-display);
-    overflow-x: hidden;
-    /* Fix horizontal scroll on iOS */
-    width: 100%;
+    overflow-x: hidden !important;
+    /* Force hide horizontal scroll */
+    width: 100vw;
+    position: relative;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-/* Vibrant Aurora Background */
+/* Vibrant Aurora Background - ENABLED ONLY ON MOBILE */
 body::after {
     content: '';
     position: fixed;
@@ -82,6 +87,8 @@ body::after {
     animation: auroraMove 20s linear infinite;
     pointer-events: none;
     transform-origin: center;
+    display: none;
+    /* Hidden on desktop to show JS Nodes */
 }
 
 @keyframes auroraMove {
@@ -1013,7 +1020,12 @@ section {
 
     /* Navbar & Mobile Menu */
     .navbar {
-        padding: 1rem 1.5rem;
+        padding: 0.75rem 1.5rem !important;
+        /* Reduced padding to fix gaps */
+        height: auto !important;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
     }
 
     .nav-links {
@@ -1024,11 +1036,14 @@ section {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 6px;
-        background: none;
-        border: none;
+        gap: 5px;
+        background: rgba(255, 255, 255, 0.05);
+        /* Added subtle bg for better click target */
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         z-index: 9500;
-        padding: 10px;
+        padding: 12px;
+        border-radius: 8px;
     }
 
     .menu-trigger .bar {
@@ -1116,25 +1131,37 @@ section {
         font-size: 0.9rem;
     }
 
-    /* Adjust Language Switcher on Mobile - Stay at bottom center */
-    .lang-switcher {
+    /* Language Switcher Logic - Cleaned up */
+    .desktop-only-switcher {
+        display: none !important;
+    }
+
+    .mobile-only-switcher {
+        position: relative !important;
         top: auto !important;
-        bottom: 2rem !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
         right: auto !important;
-        padding: 0.4rem 0.8rem !important;
-        font-size: 0.65rem !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+        margin-top: 2rem;
+        background: rgba(255, 255, 255, 0.05) !important;
+        display: flex !important;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     /* Slow down and simplify background on mobile - Prevent over-scaling */
     body::after {
+        display: block;
+        /* Show aurora on mobile for variety */
         width: 150%;
         height: 150%;
         top: -25%;
         left: -25%;
         animation: auroraMove 60s linear infinite;
-        opacity: 0.6;
+        opacity: 0.8 !important;
+        z-index: -1;
     }
 
     /* RESTORE MOBILE GRIDS/CARDS */
@@ -1147,8 +1174,31 @@ section {
     }
 
     .skill-card-container {
-        max-width: 180px !important;
-        height: 250px !important;
+        max-width: 160px !important;
+        height: 220px !important;
+    }
+
+    .card-face {
+        padding: 0.8rem !important;
+        /* Even less padding */
+    }
+
+    .card-face h3 {
+        font-size: 1rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    .card-face p {
+        font-size: 0.75rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .skill-level {
+        padding: 0.3rem 0.6rem !important;
+        font-size: 0.65rem !important;
+        margin-top: auto !important;
+        /* Push to bottom */
     }
 
     .project-card,
