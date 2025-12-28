@@ -100,24 +100,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 3. Navbar & Mobile Menu Logic ---
-    const navbar = document.querySelector('.navbar');
     const menuTrigger = document.querySelector('.menu-trigger');
     const mobileNav = document.querySelector('.mobile-nav');
     const mobileLinks = document.querySelectorAll('.mobile-link');
 
+    const toggleMenu = () => {
+        menuTrigger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    };
+
     if (menuTrigger) {
-        menuTrigger.addEventListener('click', () => {
-            menuTrigger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        menuTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
         });
     }
 
     mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            menuTrigger.classList.remove('active');
-            mobileNav.classList.remove('active');
-            document.body.style.overflow = '';
+        link.addEventListener('click', toggleMenu);
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !menuTrigger.contains(e.target)) {
+            toggleMenu();
+        }
+    });
+
+    // --- 4. Mobile Interactions: Click-to-Flip ---
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach(card => {
+        card.addEventListener('click', function () {
+            // Check if we are on a touch device (simple check)
+            if (window.innerWidth <= 1024) {
+                this.classList.toggle('flipped');
+            }
         });
     });
 
