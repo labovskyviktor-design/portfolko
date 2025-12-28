@@ -81,25 +81,25 @@ const translations = {
                 tag3: 'Manufacturing'
             },
             p2: {
-                title: 'Prekladač Článkov',
-                desc: 'Vysoko výkonný nástroj pre lingvistický preklad článkov medzi slovenčinou a češtinou s dôrazom na kontext.',
-                tag1: 'Web Tool',
-                tag2: 'JavaScript',
+                title: 'HTML Prekladač',
+                desc: 'Inovatívny nástroj na kompletný lingvistický preklad webových stránok. Stačí vložiť odkaz a aplikácia preloží celý obsah medzi slovenčinou a češtinou.',
+                tag1: 'HTML Translator',
+                tag2: 'Web Scraping',
                 tag3: 'Linguistics'
             },
             p3: {
                 title: 'Thesis Agent',
-                desc: 'AI-poháňaný výskumný asistent pre študentov, automatizujúci štruktúrovanie záverečných prác a rešerš.',
-                tag1: 'AI & Agents',
+                desc: 'Inteligentný akademický asistent navrhnutý pre študentov na automatizáciu rešerše a štruktúrovanie záverečných prác.',
+                tag1: 'Academic Tool',
                 tag2: 'Automation',
-                tag3: 'Python'
+                tag3: 'Student AI'
             },
             p4: {
                 title: 'Energetický Audit',
-                desc: 'Profesionálny inžiniersky nástroj na výpočet energetickej certifikácie budov a analýzu úspor.',
-                tag1: 'Engineering',
-                tag2: 'Data Analysis',
-                tag3: 'Sustainability'
+                desc: 'Inžinierska aplikácia podľa normy STN EN 16247 na certifikáciu budov a presnú analýzu úspor energie.',
+                tag1: 'STN EN 16247',
+                tag2: 'Engineering',
+                tag3: 'Energy Efficiency'
             }
         },
         contact: { title: 'Kontakt' }
@@ -185,25 +185,25 @@ const translations = {
                 tag3: 'Manufacturing'
             },
             p2: {
-                title: 'Article Translator',
-                desc: 'High-performance linguistic tool for article translation between Slovak and Czech with context emphasis.',
-                tag1: 'Web Tool',
-                tag2: 'JavaScript',
+                title: 'HTML Translator',
+                desc: 'Innovative tool for full linguistic translation of websites. Just enter a link and the app translates the entire content between Slovak and Czech.',
+                tag1: 'HTML Translator',
+                tag2: 'Web Scraping',
                 tag3: 'Linguistics'
             },
             p3: {
                 title: 'Thesis Agent',
-                desc: 'AI-powered research assistant for students, automating thesis structuring and bibliography.',
-                tag1: 'AI & Agents',
+                desc: 'Intelligent academic assistant designed for students to automate research and thesis structuring.',
+                tag1: 'Academic Tool',
                 tag2: 'Automation',
-                tag3: 'Python'
+                tag3: 'Student AI'
             },
             p4: {
                 title: 'Energy Audit',
-                desc: 'Professional engineering tool for building energy certification and savings analysis.',
-                tag1: 'Engineering',
-                tag2: 'Data Analysis',
-                tag3: 'Sustainability'
+                desc: 'Engineering application based on STN EN 16247 for building certification and precise energy savings analysis.',
+                tag1: 'STN EN 16247',
+                tag2: 'Engineering',
+                tag3: 'Energy Efficiency'
             }
         },
         contact: { title: 'Contact' }
