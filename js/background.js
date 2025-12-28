@@ -39,8 +39,8 @@ class Particle {
     constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5);
-        this.vy = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5);
+        this.vx = (Math.random() - 0.5) * (isMobile ? 0.6 : 0.5); // HIGHER VELOCITY ON MOBILE
+        this.vy = (Math.random() - 0.5) * (isMobile ? 0.6 : 0.5);
         this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
         this.color = `rgba(${Math.random() > 0.5 ? '99, 102, 241' : '6, 182, 212'}, ${Math.random() * 0.4 + 0.1})`;
     }
@@ -49,17 +49,15 @@ class Particle {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Skip mouse interaction on small mobile for performance
-        if (!isMobile) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+        // Restore mouse/touch interaction detection logic
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
-            if (dist < 200) {
-                const force = (200 - dist) / 200;
-                this.vx -= (dx / dist) * force * 0.5;
-                this.vy -= (dy / dist) * force * 0.5;
-            }
+        if (dist < (isMobile ? 150 : 200)) {
+            const force = ((isMobile ? 150 : 200) - dist) / (isMobile ? 150 : 200);
+            this.vx -= (dx / dist) * force * (isMobile ? 0.8 : 0.5); // STRONGER PUSH ON MOBILE
+            this.vy -= (dy / dist) * force * (isMobile ? 0.8 : 0.5);
         }
 
         if (this.x < 0 || this.x > width) this.vx *= -1;
@@ -100,7 +98,7 @@ function animate() {
 
             if (distSq < minDistSq) {
                 const dist = Math.sqrt(distSq);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - dist / (connectionDist * 10)})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 - dist / (connectionDist * 8)})`; // Slightly brighter connections
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();
                 ctx.moveTo(p.x, p.y);
@@ -113,9 +111,29 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
+// RESTORED TOUCH INTERACTIVITY FOR MOBILE
 window.addEventListener('mousemove', e => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
+});
+
+window.addEventListener('touchstart', e => {
+    if (e.touches[0]) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }
+}, { passive: true });
+
+window.addEventListener('touchmove', e => {
+    if (e.touches[0]) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }
+}, { passive: true });
+
+window.addEventListener('touchend', () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
 });
 
 // Initial trigger
