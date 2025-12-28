@@ -1308,7 +1308,20 @@ section {
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.3) !important;
         text-transform: uppercase !important;
         margin: 0.5rem auto 0 auto !important;
-        /* Balanced for 480px height */
+        opacity: 1 !important;
+        /* FORCED VISIBILITY */
+    }
+
+    /* Force all text content to be visible on scroll */
+    .card-back h3,
+    .card-back p,
+    .service-features,
+    .service-features li {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     /* Special styling for Services cards */

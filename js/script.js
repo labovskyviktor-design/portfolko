@@ -129,16 +129,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 4. Mobile Interactions: Click-to-Flip ---
+    // Mobile Interactions removed for flat design
+    /*
     const skillCards = document.querySelectorAll('.skill-card');
     skillCards.forEach(card => {
         card.addEventListener('click', function () {
-            // Check if we are on a touch device (simple check)
             if (window.innerWidth <= 1024) {
                 this.classList.toggle('flipped');
             }
         });
     });
+    */
 
     const backToTop = document.querySelector('.back-to-top');
     const progressBar = document.querySelector('.progress-circle-bar');
