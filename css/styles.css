@@ -1124,6 +1124,17 @@ section {
         right: auto;
     }
 
+    /* Slow down and simplify background on mobile */
+    body::after {
+        width: 150%;
+        height: 150%;
+        top: -25%;
+        left: -25%;
+        animation: auroraMove 60s linear infinite;
+        /* Much slower */
+        opacity: 0.6;
+    }
+
     /* Grids with centering */
     .skills-grid {
         display: grid;
