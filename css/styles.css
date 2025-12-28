@@ -1208,8 +1208,8 @@ section {
 
     .skill-card-container {
         max-width: 100% !important;
-        height: 380px !important;
-        /* UNIFIED HEIGHT */
+        height: 480px !important;
+        /* SAFE UNIFIED HEIGHT */
         perspective: none !important;
         cursor: default !important;
         margin-bottom: 0 !important;
@@ -1222,7 +1222,8 @@ section {
         flex-direction: column !important;
         height: 100% !important;
         border-radius: 24px !important;
-        overflow: hidden !important;
+        overflow: visible !important;
+        /* Allow content to breathe */
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
         background: rgba(255, 255, 255, 0.03) !important;
@@ -1249,15 +1250,15 @@ section {
 
     /* Top section with primary accent glow */
     .card-front {
-        padding-top: 2.2rem !important;
+        padding-top: 2.5rem !important;
         padding-bottom: 0.5rem !important;
         flex: 0 0 auto !important;
     }
 
     .card-front .icon {
-        font-size: 3.8rem !important;
-        height: 75px !important;
-        margin-bottom: 1.2rem !important;
+        font-size: 3.2rem !important;
+        height: 60px !important;
+        margin-bottom: 1rem !important;
         filter: drop-shadow(0 0 15px var(--accent-1)) !important;
     }
 
@@ -1272,8 +1273,8 @@ section {
     /* Bottom section with content */
     .card-back {
         flex: 1 !important;
-        padding-top: 0.5rem !important;
-        padding-bottom: 2.5rem !important;
+        padding-top: 0.2rem !important;
+        padding-bottom: 2rem !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -1285,10 +1286,10 @@ section {
     }
 
     .card-back p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
         color: var(--secondary) !important;
-        margin-bottom: 1.5rem !important;
+        margin-bottom: 1rem !important;
         max-width: 90% !important;
     }
 
@@ -1306,8 +1307,8 @@ section {
         color: var(--accent-1) !important;
         box-shadow: 0 0 15px rgba(99, 102, 241, 0.3) !important;
         text-transform: uppercase !important;
-        margin: auto auto 0 auto !important;
-        /* Perfect centering */
+        margin: 0.5rem auto 0 auto !important;
+        /* Balanced for 480px height */
     }
 
     /* Special styling for Services cards */
