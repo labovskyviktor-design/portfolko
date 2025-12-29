@@ -1,6 +1,5 @@
 // --- 3. Navbar & Mobile Menu Logic (GLOBAL EXPOSURE - TOP LEVEL) ---
 window.toggleMobileMenu = function () {
-    console.log("Toggle Mobile Menu Clicked"); // Debug logging
     const menuTrigger = document.querySelector('.menu-trigger');
     const mobileNav = document.querySelector('.mobile-nav');
     const navbar = document.querySelector('.navbar');
@@ -32,30 +31,57 @@ window.toggleMobileMenu = function () {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 0. Preloader ---
-    window.addEventListener('load', () => {
-        const preloader = document.querySelector('.preloader');
-        if (preloader) {
+    // --- 0. Preloader (CRITICAL: MUST RUN FIRST) ---
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        // Force hide after load
+        window.addEventListener('load', () => {
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.display = 'none';
             }, 500);
+        });
+
+        // Fallback for safety (max 3s)
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        }, 3000);
+    }
+
+    // --- 1. Navbar & Scroll Logic ---
+    const navbar = document.querySelector('.navbar');
+    const backToTop = document.querySelector('.back-to-top');
+    const progressBar = document.querySelector('.progress-circle-bar');
+    const progressTotal = 283;
+
+    window.addEventListener('scroll', () => {
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        if (backToTop) {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        if (progressBar) {
+            const scrollPercent = (window.scrollY) / (document.documentElement.scrollHeight - window.innerHeight);
+            const offset = progressTotal - (scrollPercent * progressTotal);
+            progressBar.style.strokeDashoffset = offset;
         }
     });
 
-    // --- 1. Premium Custom Cursor (Simple & Smooth) ---
-    // Only init if device has fine pointer (mouse)
-    if (window.matchMedia("(pointer: fine)").matches) {
-        const cursorDot = document.createElement('div');
-        const cursorOutline = document.createElement('div');
-        cursorDot.className = 'cursor-dot';
-        cursorOutline.className = 'cursor-outline';
-        document.body.appendChild(cursorDot);
-        document.body.appendChild(cursorOutline);
-        // ... (rest of cursor logic)
-    }
-
-    // --- Auto-Close Listeners ---
+    // Auto-close on link click
     const mobileLinks = document.querySelectorAll('.mobile-link');
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -75,224 +101,142 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const spotlight = document.createElement('div');
-    spotlight.className = 'spotlight-overlay';
-    document.body.appendChild(spotlight);
 
-    // Core coordinates
-    let mouseX = 0, mouseY = 0;
-    let dotX = 0, dotY = 0;
-    let outlineX = 0, outlineY = 0;
+    // --- 2. Premium Custom Cursor (Simple & Smooth) ---
+    // Only init if device has fine pointer (mouse)
+    if (window.matchMedia("(pointer: fine)").matches) {
+        const cursorDot = document.createElement('div');
+        const cursorOutline = document.createElement('div');
+        cursorDot.className = 'cursor-dot';
+        cursorOutline.className = 'cursor-outline';
+        document.body.appendChild(cursorDot);
+        document.body.appendChild(cursorOutline);
 
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        const spotlight = document.createElement('div');
+        spotlight.className = 'spotlight-overlay';
+        document.body.appendChild(spotlight);
 
-        spotlight.style.setProperty('--x', `${mouseX}px`);
-        spotlight.style.setProperty('--y', `${mouseY}px`);
-    });
+        // Core coordinates
+        let mouseX = 0, mouseY = 0;
+        let dotX = 0, dotY = 0;
+        let outlineX = 0, outlineY = 0;
 
-    const lerp = (start, end, factor) => start + (end - start) * factor;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            spotlight.style.setProperty('--x', `${mouseX}px`);
+            spotlight.style.setProperty('--y', `${mouseY}px`);
+        });
 
-    function renderCursor() {
-        // Smooth movement
-        dotX = lerp(dotX, mouseX, 0.2);
-        dotY = lerp(dotY, mouseY, 0.2);
-        outlineX = lerp(outlineX, mouseX, 0.1);
-        outlineY = lerp(outlineY, mouseY, 0.1);
+        const lerp = (start, end, factor) => start + (end - start) * factor;
 
-        cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-        cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+        function renderCursor() {
+            dotX = lerp(dotX, mouseX, 0.2);
+            dotY = lerp(dotY, mouseY, 0.2);
+            outlineX = lerp(outlineX, mouseX, 0.1);
+            outlineY = lerp(outlineY, mouseY, 0.1);
 
-        requestAnimationFrame(renderCursor);
+            cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+            requestAnimationFrame(renderCursor);
+        }
+        renderCursor();
+
+        // Click behavior
+        window.addEventListener('mousedown', () => cursorOutline.classList.add('clicking'));
+        window.addEventListener('mouseup', () => cursorOutline.classList.remove('clicking'));
+
+        // Dynamic Interaction Detection
+        function initInteractions() {
+            const triggers = document.querySelectorAll('a, button, .skill-card-container, .project-card, .lang-btn, .magnetic');
+            triggers.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorDot.classList.add('active');
+                    cursorOutline.classList.add('active');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorDot.classList.remove('active');
+                    cursorOutline.classList.remove('active');
+                });
+            });
+        }
+        initInteractions();
     }
-    renderCursor();
 
-    // Click behavior
-    window.addEventListener('mousedown', () => cursorOutline.classList.add('clicking'));
-    window.addEventListener('mouseup', () => cursorOutline.classList.remove('clicking'));
+    // --- 3. Premium Magnetic Effect ---
+    const magneticItems = [];
+    function initMagnetic() {
+        if (window.innerWidth <= 1024) return;
 
-    // Dynamic Interaction Detection
-    // Dynamic Interaction Detection
-    function initInteractions() {
-        const triggers = document.querySelectorAll('a, button, .skill-card-container, .project-card, .lang-btn, .magnetic');
+        document.querySelectorAll('.magnetic').forEach(el => {
+            magneticItems.push({
+                el: el,
+                currentX: 0, currentY: 0,
+                targetX: 0, targetY: 0,
+                lerp: 0.1
+            });
 
-        triggers.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorDot.classList.add('active');
-                cursorOutline.classList.add('active');
+            el.addEventListener('mousemove', (e) => {
+                const item = magneticItems.find(m => m.el === el);
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const strength = el.classList.contains('btn') ? 40 : 20;
+
+                item.targetX = (e.clientX - centerX) * (strength / 100);
+                item.targetY = (e.clientY - centerY) * (strength / 100);
             });
 
             el.addEventListener('mouseleave', () => {
-                cursorDot.classList.remove('active');
-                cursorOutline.classList.remove('active');
+                const item = magneticItems.find(m => m.el === el);
+                item.targetX = 0;
+                item.targetY = 0;
             });
         });
     }
-    initInteractions(); // MOVED INSIDE BLOCK to fix ReferenceError
-} // End of pointer:fine check
 
-    // Define navbar globally for the scope of DOMContentLoaded
-    const navbar = document.querySelector('.navbar');
-
-// --- 1.1 Premium Magnetic Effect (Smooth LERP) ---
-const magneticItems = [];
-function initMagnetic() {
-    if (window.innerWidth <= 1024) return;
-
-    document.querySelectorAll('.magnetic').forEach(el => {
-        magneticItems.push({
-            el: el,
-            currentX: 0, currentY: 0,
-            targetX: 0, targetY: 0,
-            lerp: 0.1
+    function updateMagnetic() {
+        magneticItems.forEach(item => {
+            const lerp = (start, end, factor) => start + (end - start) * factor;
+            item.currentX = lerp(item.currentX, item.targetX, item.lerp);
+            item.currentY = lerp(item.currentY, item.targetY, item.lerp);
+            item.el.style.transform = `translate3d(${item.currentX}px, ${item.currentY}px, 0)`;
         });
+        requestAnimationFrame(updateMagnetic);
+    }
 
-        el.addEventListener('mousemove', (e) => {
-            const item = magneticItems.find(m => m.el === el);
-            const rect = el.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const strength = el.classList.contains('btn') ? 40 : 20;
+    initMagnetic();
+    updateMagnetic();
 
-            item.targetX = (e.clientX - centerX) * (strength / 100);
-            item.targetY = (e.clientY - centerY) * (strength / 100);
+    // --- 4. Smooth Scroll Reveal ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
         });
+    }, { threshold: 0.1 });
 
-        el.addEventListener('mouseleave', () => {
-            const item = magneticItems.find(m => m.el === el);
-            item.targetX = 0;
-            item.targetY = 0;
+    const sections = document.querySelectorAll('section, header');
+    sections.forEach(section => {
+        const revealElements = section.querySelectorAll('.skill-card-container, .project-card, h1, .badge, .hero-tagline, .cta-group');
+        revealElements.forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `all 0.6s cubic-bezier(0.23, 1, 0.32, 1) ${i * 0.05}s`;
+            observer.observe(el);
         });
     });
-}
 
-function updateMagnetic() {
-    magneticItems.forEach(item => {
-        item.currentX = lerp(item.currentX, item.targetX, item.lerp);
-        item.currentY = lerp(item.currentY, item.targetY, item.lerp);
-        item.el.style.transform = `translate3d(${item.currentX}px, ${item.currentY}px, 0)`;
-    });
-    requestAnimationFrame(updateMagnetic);
-}
-
-initMagnetic();
-updateMagnetic();
-
-// --- 2. Smooth Scroll Reveal (Optimized & Snappy) ---
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            // Stop observing after reveal for performance
-            observer.unobserve(entry.target);
+    // --- 5. Content Protection ---
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'u' || e.key === 'a')) {
+            e.preventDefault();
         }
     });
-}, { threshold: 0.1 });
-
-// Grouping by section to reset stagger index
-const sections = document.querySelectorAll('section, header');
-sections.forEach(section => {
-    const revealElements = section.querySelectorAll('.skill-card-container, .project-card, h1, .badge, .hero-tagline, .cta-group');
-    revealElements.forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = `all 0.6s cubic-bezier(0.23, 1, 0.32, 1) ${i * 0.05}s`;
-        observer.observe(el);
-    });
-});
-
-// --- 3. Navbar & Mobile Menu Logic ---
-// --- 3. Navbar & Mobile Menu Logic (GLOBAL EXPOSURE) ---
-window.toggleMobileMenu = function () {
-    const menuTrigger = document.querySelector('.menu-trigger');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const navbar = document.querySelector('.navbar');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-    if (!menuTrigger || !mobileNav) return;
-
-    menuTrigger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-    if (navbar) navbar.classList.toggle('menu-open');
-    document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
-
-    // Staggered reveal for mobile links
-    if (mobileNav.classList.contains('active')) {
-        mobileLinks.forEach((link, i) => {
-            link.style.opacity = '0';
-            link.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                link.style.transition = 'all 0.4s var(--ease-out)';
-                link.style.opacity = '1';
-                link.style.transform = 'translateY(0)';
-            }, 100 + i * 100);
-        });
-    }
-};
-
-// Auto-close on link click
-const mobileLinks = document.querySelectorAll('.mobile-link');
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        // Basic close logic
-        const menuTrigger = document.querySelector('.menu-trigger');
-        const mobileNav = document.querySelector('.mobile-nav');
-        const navbar = document.querySelector('.navbar');
-
-        if (mobileNav && mobileNav.classList.contains('active')) {
-            menuTrigger.classList.remove('active');
-            mobileNav.classList.remove('active');
-            if (navbar) navbar.classList.remove('menu-open');
-            document.body.style.overflow = '';
-        }
-    });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    const mobileNav = document.querySelector('.mobile-nav');
-    const menuTrigger = document.querySelector('.menu-trigger');
-    if (mobileNav && mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !menuTrigger.contains(e.target)) {
-        window.toggleMobileMenu();
-    }
-});
-
-// Cleanup old event listeners logic since we use onclick now
-
-
-const backToTop = document.querySelector('.back-to-top');
-const progressBar = document.querySelector('.progress-circle-bar');
-const progressTotal = 283;
-
-// --- 5. Content Protection (No Copy/Selection) ---
-document.addEventListener('contextmenu', (e) => e.preventDefault());
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'u' || e.key === 'a')) {
-        e.preventDefault();
-    }
-});
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-
-    if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
-    }
-
-    const scrollPercent = (window.scrollY) / (document.documentElement.scrollHeight - window.innerHeight);
-    const offset = progressTotal - (scrollPercent * progressTotal);
-    if (progressBar) {
-        progressBar.style.strokeDashoffset = offset;
-    }
-});
 
 });
