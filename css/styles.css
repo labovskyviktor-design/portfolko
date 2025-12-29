@@ -1336,15 +1336,17 @@ section {
         background: #0d0d12 !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-top: 2px solid var(--accent-color, var(--skill-color, var(--accent-1))) !important;
-        /* RESTORED THIN BORDER-TOP */
         border-radius: 20px !important;
         padding: 3rem 2rem !important;
         overflow: visible !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6) !important;
         display: flex !important;
         flex-direction: column !important;
         height: auto !important;
         position: relative !important;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1) !important;
+        /* SILKY & DELIBERATE */
+        will-change: transform, box-shadow;
     }
 
     /* PREMIUM GLOW AT THE BOTTOM (STABLE) */
@@ -1375,7 +1377,17 @@ section {
     .service-card *,
     .skill-card * {
         transform: none !important;
-        transition: none !important;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+        /* RE-ENABLED & SLOWED DOWN */
+    }
+
+    /* PREMIUM TAP FEEDBACK (TACTILE FEEL) */
+    .service-card:active,
+    .skill-card:active {
+        transform: scale(0.97) !important;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8),
+            0 0 30px rgba(var(--accent-color-rgb, var(--skill-color-rgb, 99, 102, 241)), 0.2) !important;
+        background: #111118 !important;
     }
 
     .card-face {
