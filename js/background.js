@@ -7,7 +7,7 @@ canvas.style.top = '0';
 canvas.style.left = '0';
 canvas.style.width = '100%';
 canvas.style.height = '100%';
-canvas.style.zIndex = '0'; // Changed from -1 to be visible above body background color
+canvas.style.zIndex = '0'; // Changed to 0 to ensure it is visible above body background but below content
 canvas.style.pointerEvents = 'none';
 
 let width, height;

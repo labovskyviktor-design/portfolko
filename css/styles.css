@@ -54,21 +54,19 @@
     /* Hide systemic cursor by default */
 }
 
-html,
-body {
+html {
     background-color: var(--bg-dark);
+}
+
+body {
+    background-color: transparent;
     color: var(--primary);
     font-family: var(--font-display);
     overflow-x: hidden !important;
-    /* Force hide horizontal scroll */
     width: 100vw;
     position: relative;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 /* Vibrant Aurora Background - ENABLED ONLY ON MOBILE */
@@ -144,8 +142,16 @@ body::after {
     transform: rotate(-90deg);
 }
 
-.progress-circle-bar {
-    transition: stroke-dashoffset 0.1s linear;
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    z-index: 10000;
+    pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0);
+    /* Hardware acceleration */
 }
 
 .arrow-up {
@@ -531,10 +537,9 @@ section {
 /* Glass Cards Overhaul */
 .skill-card,
 .project-card {
-    background: rgba(255, 255, 255, 0.01) !important;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: rgba(10, 10, 15, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .project-card {
@@ -595,13 +600,13 @@ section {
 
 /* Old visual styles removed to prevent artifacts */
 .about-text {
-    font-size: 2.5rem;
-    /* Larger for impact */
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    /* Responsive sizing */
     line-height: 1.3;
     max-width: 1000px;
     color: white;
-    /* High contrast */
     font-weight: 300;
+    perspective: 1000px;
 }
 
 .about-text strong {
@@ -681,14 +686,17 @@ section {
 
 .service-web {
     --accent-color: var(--service-web);
+    --accent-color-rgb: 129, 140, 248;
 }
 
 .service-apps {
     --accent-color: var(--service-apps);
+    --accent-color-rgb: 52, 211, 153;
 }
 
 .service-desktop {
     --accent-color: var(--service-desktop);
+    --accent-color-rgb: 244, 114, 182;
 }
 
 .service-card-container[class*="service-"] .card-face {
@@ -762,31 +770,45 @@ section {
     justify-content: center;
     text-decoration: none;
     width: 100%;
-    padding: 1rem;
+    padding: 1.2rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
-    text-align: center;
+    position: relative;
+    overflow: hidden;
     transition: all 0.4s var(--ease-out);
-    margin-top: 1rem;
 }
 
-.service-card-container:hover .service-cta {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-color);
-    transform: translateY(-3px);
+.service-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s var(--ease-out);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.service-cta:hover::before {
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .service-cta span {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: #fff;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    transition: color 0.3s;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
 }
 
+.service-cta:hover span,
 .service-card-container:hover .service-cta span {
     color: #000;
 }
@@ -1357,117 +1379,146 @@ section {
         transform-style: flat !important;
         display: flex !important;
         flex-direction: column !important;
-        height: 100% !important;
+        height: auto !important;
+        min-height: 100% !important;
         background: #0a0a0f !important;
-        /* Solid background for stability */
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 20px !important;
         -webkit-tap-highlight-color: transparent !important;
         overflow: hidden !important;
-        /* Prevent layer bleed */
         will-change: auto !important;
-        /* Disable forced GPU layering */
-        transition: background 0.3s ease !important;
+        transition: none !important;
+        z-index: 100 !important;
+        /* Ensure it's above everything */
     }
 
-    /* Glow Restoration for ALL cards on mobile */
-    .skill-card-container[class*="skill-"] .skill-card {
-        border-top: 3px solid var(--skill-color) !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(var(--skill-color-rgb), 0.3) !important;
+    /* Total wipe of nested transforms/filters on mobile */
+    .service-card *,
+    .skill-card * {
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+        will-change: auto !important;
     }
 
+    /* Restore specific layout colors without filters */
+    .skill-card-container[class*="skill-"] .skill-card,
     .service-card-container .service-card {
-        border-top: 3px solid var(--accent-color) !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(var(--accent-color), 0.3) !important;
+        border-top: 3px solid var(--skill-color, var(--accent-color)) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
     }
 
     .skill-card-container:active .skill-card,
     .service-card-container:active .service-card {
-        transform: none !important;
-        /* Kill scale transform to stop glitch */
-        background: #111 !important;
-        /* Visual feedback via color only */
+        background: #151520 !important;
     }
 
-    .card-face {
-        position: relative !important;
+
+
+    /* Aggressive Reset for Mobile Card Faces to eliminate "light" bug */
+    .service-card .card-face,
+    .skill-card .card-face,
+    .service-card-container[class*="service-"] .card-face,
+    .skill-card-container[class*="skill-"] .card-face {
+        position: static !important;
         width: 100% !important;
         height: auto !important;
-        backface-visibility: visible !important;
-        -webkit-backface-visibility: visible !important;
         opacity: 1 !important;
+        visibility: visible !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        padding: 1.5rem !important;
+        padding: 0 !important;
         background: transparent !important;
         border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
         transform: none !important;
+        backdrop-filter: none !important;
+        filter: none !important;
     }
 
     .card-front {
-        padding-top: 2.5rem !important;
+        padding-top: 3rem !important;
         padding-bottom: 0.5rem !important;
     }
 
     .card-back {
         padding-top: 0 !important;
-        padding-bottom: 2.5rem !important;
+        padding-bottom: 3rem !important;
     }
 
-    .card-front h3 {
-        display: none !important;
-        /* Remove duplicate title for cleaner rendering */
+    /* PREMIUM MOBILE CARD DESIGN (CLEAN & SHARP) */
+    .skill-card-container .skill-card,
+    .service-card-container .service-card {
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-top: 4.5px solid var(--accent-color, var(--skill-color, var(--accent-1))) !important;
+        border-radius: 28px !important;
+        background: #0d0d12 !important;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6) !important;
+        padding: 1.5rem !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: auto !important;
     }
 
-    .icon {
-        font-size: 3.5rem !important;
-        margin-bottom: 1rem !important;
-        filter: none !important;
-        /* Kill filters on Emoji to stop disappearing act */
-    }
-
+    .icon,
     .service-icon {
         font-size: 4rem !important;
         margin-bottom: 1.5rem !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         filter: none !important;
-        /* Stabilize service icons */
     }
 
     .service-card .card-back p,
     .skill-card .card-back p {
-        font-size: 1rem !important;
+        font-size: 1.05rem !important;
         line-height: 1.6 !important;
-        display: block !important;
         color: var(--secondary) !important;
-        margin-bottom: 1.2rem !important;
-        max-width: 90% !important;
+        margin-bottom: 2rem !important;
+        text-align: center !important;
+        display: block !important;
     }
 
     .service-cta {
-        margin-top: 1rem !important;
+        margin-top: auto !important;
         width: 100% !important;
-        padding: 1rem !important;
+        padding: 1.3rem !important;
         border-radius: 100px !important;
-        background: rgba(255, 255, 255, 0.05);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.3s var(--ease-out) !important;
+    }
+
+    .service-cta:active {
+        background: var(--accent-color, var(--accent-1)) !important;
+        transform: scale(0.97) !important;
+    }
+
+    .service-cta:active span {
+        color: #000 !important;
     }
 
     .service-cta span {
-        font-size: 0.75rem !important;
-        font-weight: 700;
-        color: #fff;
-        text-transform: uppercase;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        color: #fff !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
     }
 
     .project-card {
         grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
-        margin-bottom: 4rem !important;
+        gap: 2rem !important;
+        margin-bottom: 5rem !important;
     }
 
     /* Disable all problematic mobile-only animations/glitch sources */
@@ -1477,6 +1528,7 @@ section {
         display: none !important;
     }
 }
+
 
 
 
@@ -1526,4 +1578,5 @@ section {
 .lang-separator {
     color: rgba(255, 255, 255, 0.3);
     font-weight: 300;
+}
 }

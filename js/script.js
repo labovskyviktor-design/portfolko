@@ -74,6 +74,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initInteractions();
 
+    // --- 1.1 Premium Magnetic Effect (Smooth LERP) ---
+    const magneticItems = [];
+    function initMagnetic() {
+        if (window.innerWidth <= 1024) return;
+
+        document.querySelectorAll('.magnetic').forEach(el => {
+            magneticItems.push({
+                el: el,
+                currentX: 0, currentY: 0,
+                targetX: 0, targetY: 0,
+                lerp: 0.1
+            });
+
+            el.addEventListener('mousemove', (e) => {
+                const item = magneticItems.find(m => m.el === el);
+                const rect = el.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const strength = el.classList.contains('btn') ? 40 : 20;
+
+                item.targetX = (e.clientX - centerX) * (strength / 100);
+                item.targetY = (e.clientY - centerY) * (strength / 100);
+            });
+
+            el.addEventListener('mouseleave', () => {
+                const item = magneticItems.find(m => m.el === el);
+                item.targetX = 0;
+                item.targetY = 0;
+            });
+        });
+    }
+
+    function updateMagnetic() {
+        magneticItems.forEach(item => {
+            item.currentX = lerp(item.currentX, item.targetX, item.lerp);
+            item.currentY = lerp(item.currentY, item.targetY, item.lerp);
+            item.el.style.transform = `translate3d(${item.currentX}px, ${item.currentY}px, 0)`;
+        });
+        requestAnimationFrame(updateMagnetic);
+    }
+
+    initMagnetic();
+    updateMagnetic();
+
     // --- 2. Smooth Scroll Reveal (Optimized & Snappy) ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -109,6 +153,19 @@ document.addEventListener('DOMContentLoaded', () => {
         menuTrigger.classList.toggle('active');
         mobileNav.classList.toggle('active');
         document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+
+        // Staggered reveal for mobile links
+        if (mobileNav.classList.contains('active')) {
+            mobileLinks.forEach((link, i) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    link.style.transition = 'all 0.4s var(--ease-out)';
+                    link.style.opacity = '1';
+                    link.style.transform = 'translateY(0)';
+                }, 100 + i * 100);
+            });
+        }
     };
 
     if (menuTrigger) {
@@ -129,17 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Mobile Interactions removed for flat design
-    /*
-    const skillCards = document.querySelectorAll('.skill-card');
-    skillCards.forEach(card => {
-        card.addEventListener('click', function () {
-            if (window.innerWidth <= 1024) {
-                this.classList.toggle('flipped');
-            }
-        });
-    });
-    */
 
     const backToTop = document.querySelector('.back-to-top');
     const progressBar = document.querySelector('.progress-circle-bar');
