@@ -1335,14 +1335,41 @@ section {
         transform-style: flat !important;
         background: #0d0d12 !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-top: 2px solid var(--accent-color, var(--skill-color, var(--accent-1))) !important;
+        /* RESTORED THIN BORDER-TOP */
         border-radius: 20px !important;
-        padding: 2.5rem 2rem !important;
+        padding: 3rem 2rem !important;
         overflow: visible !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
         display: flex !important;
         flex-direction: column !important;
         height: auto !important;
         position: relative !important;
+    }
+
+    /* PREMIUM GLOW AT THE BOTTOM (STABLE) */
+    .service-card::after,
+    .skill-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent-color, var(--skill-color, var(--accent-1))), transparent);
+        box-shadow: 0 0 15px var(--accent-color, var(--skill-color, var(--accent-1)));
+        opacity: 0.3;
+    }
+
+    /* Definitive Wipe of all nested glitch sources */
+    .service-card-container[class*="service-"] .card-face,
+    .skill-card-container[class*="skill-"] .card-face {
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        filter: none !important;
+        /* KILL FILTERS HERE */
     }
 
     .service-card *,
@@ -1379,12 +1406,31 @@ section {
 
     .icon,
     .service-icon {
-        font-size: 3.8rem !important;
-        margin-bottom: 1.5rem !important;
+        font-size: 4rem !important;
+        margin-bottom: 2rem !important;
         display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
-        filter: drop-shadow(0 0 20px rgba(var(--accent-color-rgb, var(--skill-color-rgb, 99, 102, 241)), 0.45)) !important;
+        filter: none !important;
+        /* NO FILTER ON MOBILE */
+        position: relative !important;
+        z-index: 10 !important;
+    }
+
+    /* PREMIUM ICON GLOW (STABLE) */
+    .icon::before,
+    .service-icon::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 130px !important;
+        height: 130px !important;
+        background: radial-gradient(circle, rgba(var(--accent-color-rgb, var(--skill-color-rgb, 99, 102, 241)), 0.45) 0%, transparent 70%) !important;
+        z-index: -1 !important;
+        pointer-events: none !important;
+        display: block !important;
     }
 
     .service-card .card-back p,
