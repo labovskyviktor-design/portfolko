@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mouseup', () => cursorOutline.classList.remove('clicking'));
 
     // Dynamic Interaction Detection
+    // Dynamic Interaction Detection
     function initInteractions() {
         const triggers = document.querySelectorAll('a, button, .skill-card-container, .project-card, .lang-btn, .magnetic');
 
@@ -128,8 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    initInteractions(); // MOVED INSIDE BLOCK to fix ReferenceError
 } // End of pointer:fine check
-    initInteractions();
+
+    // Define navbar globally for the scope of DOMContentLoaded
+    const navbar = document.querySelector('.navbar');
 
 // --- 1.1 Premium Magnetic Effect (Smooth LERP) ---
 const magneticItems = [];
