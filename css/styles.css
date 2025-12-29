@@ -1296,7 +1296,10 @@ section {
 
     .hero-section {
         min-height: 100dvh;
-        padding: 60px 0 40px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        padding: 120px 0 40px !important;
     }
 
     .hero-title {
