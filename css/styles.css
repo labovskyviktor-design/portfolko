@@ -1314,6 +1314,7 @@ section {
     }
 
     .badge {
+        margin-top: -20px !important;
         margin-bottom: 0.75rem !important;
     }
 
