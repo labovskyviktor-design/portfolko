@@ -43,7 +43,16 @@ class Particle {
         this.vx = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.2);
         this.vy = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.2);
         this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
-        this.color = `rgba(${Math.random() > 0.5 ? '99, 102, 241' : '6, 182, 212'}, ${Math.random() * 0.4 + 0.1})`;
+
+        // NEBULA PALETTE: Cyan, Indigo, and now MAGENTA/PURPLE
+        const colorType = Math.random();
+        if (colorType < 0.33) {
+            this.color = `rgba(99, 102, 241, ${Math.random() * 0.4 + 0.1})`; // Indigo
+        } else if (colorType < 0.66) {
+            this.color = `rgba(6, 182, 212, ${Math.random() * 0.4 + 0.1})`; // Cyan
+        } else {
+            this.color = `rgba(236, 72, 153, ${Math.random() * 0.4 + 0.1})`; // Magenta/Pink Accent
+        }
     }
 
     update() {
@@ -85,7 +94,8 @@ function initParticles() {
 function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    const connectionDist = isMobile ? 110 : 160;
+    // INCREASED CONNECTION DISTANCE FOR LARGER STRUCTURES
+    const connectionDist = isMobile ? 130 : 190;
 
     particles.forEach((p, i) => {
         p.update();
@@ -109,7 +119,7 @@ function animate() {
                 ctx.lineTo(p2.x, p2.y);
                 ctx.stroke();
 
-                // PLEXUS TRIANGULATION (Create Structures)
+                // PLEXUS TRIANGULATION (High Visibility)
                 // Look for a third particle to form a triangle
                 for (let k = j + 1; k < particles.length; k++) {
                     const p3 = particles[k];
@@ -118,9 +128,9 @@ function animate() {
                     const distSq2 = dx2 * dx2 + dy2 * dy2;
 
                     if (distSq2 < minDistSq) {
-                        // We have a triangle (p1-p2, p2-p3, and implicitly p1-p3 distance check included by loop nature usually sufficient for visual cluster)
-                        // Fill the triangle with very low opacity
-                        ctx.fillStyle = `rgba(99, 102, 241, ${0.03 - dist / (connectionDist * 20)})`; // Subtle indigo tint
+                        // High Visibility Fill (0.03 -> 0.15 base opacity)
+                        // Use a blend of colors or a neutral highlight for structures
+                        ctx.fillStyle = `rgba(129, 140, 248, ${0.15 - dist / (connectionDist * 5)})`; // Bright Indigo/Purple fill
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
