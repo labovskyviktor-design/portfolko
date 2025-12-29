@@ -39,20 +39,13 @@ class Particle {
     constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        // PREMIUM SLOW MOTION (Reduced by ~60%)
-        this.vx = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.2);
-        this.vy = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.2);
+        // ULTRA-SLOW MOTION (Deep Space Drift)
+        this.vx = (Math.random() - 0.5) * (isMobile ? 0.15 : 0.08); // Reduced to ~0.08 for minimal drift
+        this.vy = (Math.random() - 0.5) * (isMobile ? 0.15 : 0.08);
         this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
 
-        // NEBULA PALETTE: Cyan, Indigo, and now MAGENTA/PURPLE
-        const colorType = Math.random();
-        if (colorType < 0.33) {
-            this.color = `rgba(99, 102, 241, ${Math.random() * 0.4 + 0.1})`; // Indigo
-        } else if (colorType < 0.66) {
-            this.color = `rgba(6, 182, 212, ${Math.random() * 0.4 + 0.1})`; // Cyan
-        } else {
-            this.color = `rgba(236, 72, 153, ${Math.random() * 0.4 + 0.1})`; // Magenta/Pink Accent
-        }
+        // DEEP SPACE PALETTE: Indigo & Cyan (No Magenta)
+        this.color = `rgba(${Math.random() > 0.5 ? '99, 102, 241' : '6, 182, 212'}, ${Math.random() * 0.4 + 0.1})`;
     }
 
     update() {
@@ -128,9 +121,9 @@ function animate() {
                     const distSq2 = dx2 * dx2 + dy2 * dy2;
 
                     if (distSq2 < minDistSq) {
-                        // High Visibility Fill (0.03 -> 0.15 base opacity)
-                        // Use a blend of colors or a neutral highlight for structures
-                        ctx.fillStyle = `rgba(129, 140, 248, ${0.15 - dist / (connectionDist * 5)})`; // Bright Indigo/Purple fill
+                        // Deep Space Fill (Subtle but Visible Structure)
+                        // Opacity tuned to 0.05 base -> clearly visible but not overwhelming
+                        ctx.fillStyle = `rgba(99, 102, 241, ${0.05 - dist / (connectionDist * 10)})`; // Deep Indigo Fill
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
