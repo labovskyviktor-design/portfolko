@@ -44,9 +44,13 @@ class Particle {
         this.vy = (Math.random() - 0.5) * (isMobile ? 0.15 : 0.08);
         this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
 
-        // UNIFORM PALETTE: Deep Indigo (Single color, varying alpha for depth)
-        // Using a single hue (240 - Indigo) with varying lightness/alpha
-        this.color = `rgba(99, 102, 241, ${Math.random() * 0.3 + 0.1})`;
+        // BALANCED PALETTE: Deep Indigo + Rare Cyan Spark (8%)
+        // The perfect middle ground: distinct but not overwhelming
+        if (Math.random() < 0.08) {
+            this.color = `rgba(6, 182, 212, ${Math.random() * 0.4 + 0.2})`; // Rare Cyan Spark
+        } else {
+            this.color = `rgba(99, 102, 241, ${Math.random() * 0.3 + 0.15})`; // Deep Indigo
+        }
     }
 
     update() {
@@ -124,8 +128,9 @@ function animate() {
                     const distSq2 = dx2 * dx2 + dy2 * dy2;
 
                     if (distSq2 < minDistSq) {
-                        // Uniform Deep Space Fill
-                        ctx.fillStyle = `rgba(99, 102, 241, ${0.05 - dist / (connectionDist * 10)})`;
+                        // Balanced Structure Fill
+                        // Opacity 0.06: Visible enough to be distinct, subtle enough to be elegant
+                        ctx.fillStyle = `rgba(99, 102, 241, ${0.06 - dist / (connectionDist * 10)})`;
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
