@@ -147,15 +147,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 3. Navbar & Mobile Menu Logic ---
-    const navbar = document.querySelector('.navbar');
-    const menuTrigger = document.querySelector('.menu-trigger');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
+    // --- 3. Navbar & Mobile Menu Logic (GLOBAL EXPOSURE) ---
+    window.toggleMobileMenu = function () {
+        const menuTrigger = document.querySelector('.menu-trigger');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const navbar = document.querySelector('.navbar');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-    const toggleMenu = () => {
+        if (!menuTrigger || !mobileNav) return;
+
         menuTrigger.classList.toggle('active');
         mobileNav.classList.toggle('active');
-        navbar.classList.toggle('menu-open'); // Added for CSS control
+        if (navbar) navbar.classList.toggle('menu-open');
         document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
 
         // Staggered reveal for mobile links
@@ -172,27 +175,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    if (menuTrigger) {
-        // Dual event binding for maximum reliability on mobile
-        ['click', 'touchstart'].forEach(evt => {
-            menuTrigger.addEventListener(evt, (e) => {
-                if (e.cancelable) e.preventDefault(); // Prevent ghost clicks if touchstart fires
-                e.stopPropagation();
-                toggleMenu();
-            }, { passive: false });
-        });
-    }
-
+    // Auto-close on link click
+    const mobileLinks = document.querySelectorAll('.mobile-link');
     mobileLinks.forEach(link => {
-        link.addEventListener('click', toggleMenu);
+        link.addEventListener('click', () => {
+            // Basic close logic
+            const menuTrigger = document.querySelector('.menu-trigger');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const navbar = document.querySelector('.navbar');
+
+            if (mobileNav && mobileNav.classList.contains('active')) {
+                menuTrigger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                if (navbar) navbar.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            }
+        });
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !menuTrigger.contains(e.target)) {
-            toggleMenu();
+        const mobileNav = document.querySelector('.mobile-nav');
+        const menuTrigger = document.querySelector('.menu-trigger');
+        if (mobileNav && mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !menuTrigger.contains(e.target)) {
+            window.toggleMobileMenu();
         }
     });
+
+    // Cleanup old event listeners logic since we use onclick now
 
 
     const backToTop = document.querySelector('.back-to-top');
