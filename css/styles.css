@@ -1337,12 +1337,11 @@ section {
         flex-direction: column !important;
         height: auto !important;
         background: #0d0d12 !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        border-top: 4px solid var(--accent-color, var(--skill-color, var(--accent-1))) !important;
-        border-radius: 28px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 20px !important;
         padding: 2rem !important;
         overflow: hidden !important;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4) !important;
     }
 
     .service-card *,
@@ -1365,19 +1364,28 @@ section {
     }
 
     .card-front {
-        padding-bottom: 1.5rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .card-front h3 {
+        display: none !important;
+        /* Hide redundant title on mobile */
     }
 
     .card-back {
-        padding-top: 0 !important;
+        padding-top: 0.5rem !important;
         display: block !important;
     }
 
     .icon,
     .service-icon {
-        font-size: 4rem !important;
-        margin-bottom: 1.5rem !important;
+        font-size: 3.5rem !important;
+        margin-bottom: 1rem !important;
         display: block !important;
+        filter: none !important;
+        /* Remove glow glitch on mobile */
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
     .service-card .card-back p,
