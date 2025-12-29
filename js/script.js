@@ -173,9 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (menuTrigger) {
-        menuTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMenu();
+        // Dual event binding for maximum reliability on mobile
+        ['click', 'touchstart'].forEach(evt => {
+            menuTrigger.addEventListener(evt, (e) => {
+                if (e.cancelable) e.preventDefault(); // Prevent ghost clicks if touchstart fires
+                e.stopPropagation();
+                toggleMenu();
+            }, { passive: false });
         });
     }
 
