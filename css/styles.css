@@ -1187,70 +1187,50 @@ section {
     }
 }
 
-@media (max-width: 768px) {
 
+@media (max-width: 768px) {
     /* Navbar & Mobile Menu */
     .navbar {
         padding: 0.5rem 1.5rem !important;
-        /* Tighter padding */
         height: auto !important;
         min-height: 50px !important;
-        /* Smaller min-height */
         display: flex !important;
         align-items: center !important;
         touch-action: pan-y !important;
-        /* PREVENT HORIZONTAL STUTTER */
     }
-
     .nav-container {
         display: flex !important;
         justify-content: center !important;
-        /* CENTERED AS REQUESTED */
         width: 100% !important;
         align-items: center !important;
         height: 100% !important;
     }
-
     .nav-links {
         display: none;
     }
-
     .menu-trigger {
         display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 5px;
         background: rgba(255, 255, 255, 0.05);
-        /* Added subtle bg for better click target */
         backdrop-filter: blur(5px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         z-index: 9500;
         padding: 12px;
         border-radius: 8px;
     }
-
     .menu-trigger .bar {
         width: 25px;
         height: 2px;
         background: white;
-        transition: 0.4s var(--ease-out);
     }
-
-    .menu-trigger.active .bar:nth-child(1) {
-        transform: translateY(4px) rotate(45deg);
-    }
-
-    .menu-trigger.active .bar:nth-child(2) {
-        transform: translateY(-4px) rotate(-45deg);
-    }
-
     .mobile-nav {
         position: fixed;
         top: 0;
         right: -100%;
         width: 100%;
         height: 100dvh;
-        /* Dynamic viewport height for iOS */
         background: rgba(5, 5, 5, 0.98);
         backdrop-filter: blur(20px);
         z-index: 9000;
@@ -1259,120 +1239,61 @@ section {
         justify-content: center;
         transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     }
-
     .mobile-nav.active {
         right: 0;
     }
-
     .mobile-nav-content {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 2rem;
     }
-
     .mobile-link {
         font-family: var(--font-display);
         font-size: 2rem;
         font-weight: 700;
         color: white;
         text-decoration: none;
-        transition: 0.3s;
         padding: 1rem;
     }
-
-    .mobile-link:hover {
-        color: var(--accent-1);
-    }
-
-    /* Hero Section - iOS Safe & Tight */
     .hero-section {
         min-height: 100dvh;
         padding: 60px 0 40px !important;
-        /* REDUCED GAP UNDER NAVBAR */
     }
-
     .hero-title {
         font-size: 16vw;
         line-height: 1.1;
     }
-
-    .hero-tagline {
-        font-size: 1rem;
-        margin: 1.5rem 0;
-    }
-
     .cta-group {
         flex-direction: column;
         width: 100%;
         gap: 1rem;
     }
-
     .cta-group .btn {
         width: 100%;
         text-align: center;
         padding: 1.2rem;
         font-size: 0.9rem;
     }
-
-    /* Language Switcher Logic - Cleaned up */
-    .desktop-only-switcher {
-        display: none !important;
-    }
-
-    .mobile-only-switcher {
-        position: relative !important;
-        top: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin-top: 2rem;
-        background: rgba(255, 255, 255, 0.05) !important;
-        display: flex !important;
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* Slow down and simplify background on mobile - Prevent over-scaling */
-    body::after {
-        display: block;
-        /* Show aurora on mobile for variety */
-        width: 150%;
-        height: 150%;
-        top: -25%;
-        left: -25%;
-        animation: auroraMove 60s linear infinite;
-        opacity: 0.8 !important;
-        z-index: -1;
-    }
-
-    /* --- DEEP MOBILE FIX (UNIFIED & GLITCH-FREE) --- */
     .services-grid,
     .skills-grid {
         grid-template-columns: 1fr !important;
         gap: 2.5rem !important;
         padding: 2rem 0 !important;
     }
-
     .service-card-container,
     .skill-card-container {
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
-        min-height: 400px !important;
+        min-height: auto !important;
         perspective: none !important;
-        /* KILL PERSPECTIVE */
         transform: none !important;
-        /* KILL MAGNETIC/IN-VIEW TRANSFORMS */
         opacity: 1 !important;
     }
-
     .skill-card-container {
-        min-height: 280px !important;
+        margin-bottom: 2rem;
     }
-
     .service-card,
     .skill-card {
         transform: none !important;
@@ -1380,101 +1301,44 @@ section {
         display: flex !important;
         flex-direction: column !important;
         height: auto !important;
-        min-height: 100% !important;
-        background: #0a0a0f !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 20px !important;
-        -webkit-tap-highlight-color: transparent !important;
+        background: #0d0d12 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-top: 4px solid var(--accent-color, var(--skill-color, var(--accent-1))) !important;
+        border-radius: 28px !important;
+        padding: 2rem !important;
         overflow: hidden !important;
-        will-change: auto !important;
-        transition: none !important;
-        z-index: 100 !important;
-        /* Ensure it's above everything */
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
     }
-
-    /* Total wipe of nested transforms/filters on mobile */
     .service-card *,
     .skill-card * {
         transform: none !important;
         filter: none !important;
         transition: none !important;
-        will-change: auto !important;
     }
-
-    /* Restore specific layout colors without filters */
-    .skill-card-container[class*="skill-"] .skill-card,
-    .service-card-container .service-card {
-        border-top: 3px solid var(--skill-color, var(--accent-color)) !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
-    }
-
-    .skill-card-container:active .skill-card,
-    .service-card-container:active .service-card {
-        background: #151520 !important;
-    }
-
-
-
-    /* Aggressive Reset for Mobile Card Faces to eliminate "light" bug */
-    .service-card .card-face,
-    .skill-card .card-face,
-    .service-card-container[class*="service-"] .card-face,
-    .skill-card-container[class*="skill-"] .card-face {
+    .card-face {
         position: static !important;
         width: 100% !important;
         height: auto !important;
-        opacity: 1 !important;
-        visibility: visible !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        justify-content: center !important;
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-        transform: none !important;
-        backdrop-filter: none !important;
-        filter: none !important;
     }
-
     .card-front {
-        padding-top: 3rem !important;
-        padding-bottom: 0.5rem !important;
+        padding-bottom: 1.5rem !important;
     }
-
     .card-back {
         padding-top: 0 !important;
-        padding-bottom: 3rem !important;
+        display: block !important;
     }
-
-    /* PREMIUM MOBILE CARD DESIGN (CLEAN & SHARP) */
-    .skill-card-container .skill-card,
-    .service-card-container .service-card {
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        border-top: 4.5px solid var(--accent-color, var(--skill-color, var(--accent-1))) !important;
-        border-radius: 28px !important;
-        background: #0d0d12 !important;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6) !important;
-        padding: 1.5rem !important;
-        overflow: hidden !important;
-        position: relative !important;
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: auto !important;
-    }
-
     .icon,
     .service-icon {
         font-size: 4rem !important;
         margin-bottom: 1.5rem !important;
         display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        filter: none !important;
     }
-
     .service-card .card-back p,
     .skill-card .card-back p {
         font-size: 1.05rem !important;
@@ -1482,9 +1346,7 @@ section {
         color: var(--secondary) !important;
         margin-bottom: 2rem !important;
         text-align: center !important;
-        display: block !important;
     }
-
     .service-cta {
         margin-top: auto !important;
         width: 100% !important;
@@ -1495,44 +1357,34 @@ section {
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        transition: all 0.3s var(--ease-out) !important;
+        color: #fff !important;
+        text-decoration: none !important;
     }
-
     .service-cta:active {
         background: var(--accent-color, var(--accent-1)) !important;
-        transform: scale(0.97) !important;
     }
-
-    .service-cta:active span {
-        color: #000 !important;
-    }
-
     .service-cta span {
         font-size: 0.85rem !important;
         font-weight: 700 !important;
-        color: #fff !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
     }
-
     .project-card {
         grid-template-columns: 1fr !important;
-        gap: 2rem !important;
+        gap: 2.5rem !important;
         margin-bottom: 5rem !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
     }
-
-    /* Disable all problematic mobile-only animations/glitch sources */
-    .spotlight-overlay,
-    .cursor-dot,
-    .cursor-outline {
-        display: none !important;
+    .project-image-wrapper {
+        border-radius: 12px !important;
+    }
+    .project-info h3 {
+        font-size: 1.8rem !important;
     }
 }
 
-
-
-
-/* --- Language Switcher - GLOBAL STYLES (RESTORED) --- */
+/* --- Global Language Switcher --- */
 .lang-switcher {
     position: fixed;
     top: 2rem;
@@ -1550,7 +1402,6 @@ section {
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.5s var(--ease-out);
 }
-
 .lang-btn {
     background: none;
     border: none;
@@ -1563,20 +1414,16 @@ section {
     text-transform: uppercase;
     border-radius: 50px;
 }
-
 .lang-btn:hover {
     color: rgba(255, 255, 255, 0.8);
     background: rgba(255, 255, 255, 0.05);
 }
-
 .lang-btn.active {
     color: white;
     background: var(--accent-1);
     box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }
-
 .lang-separator {
     color: rgba(255, 255, 255, 0.3);
     font-weight: 300;
-}
 }
