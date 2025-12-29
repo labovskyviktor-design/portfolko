@@ -344,12 +344,12 @@ section {
 }
 
 /* Increased specificity to guarantee override */
-nav.navbar.scrolled {
+/* BOILERPLATE FIX: High specificity to force scroll effect */
+body .navbar.scrolled {
     padding: 1rem 4vw;
-    background: rgba(5, 5, 5, 0.95) !important;
+    background-color: rgba(5, 5, 5, 0.95) !important;
     backdrop-filter: blur(20px) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    /* Slightly brighter border */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -1276,7 +1276,10 @@ nav.navbar.scrolled {
         transition: all 0.4s var(--ease-out);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         pointer-events: auto !important;
-        /* Ensure clickable */
+        position: relative;
+        /* CRITICAL FIX: Enables z-index to work */
+        cursor: pointer;
+        /* CRITICAL FIX: Ensures interaction on iOS */
     }
 
     .menu-trigger.active {
