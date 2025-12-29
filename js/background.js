@@ -78,8 +78,9 @@ class Particle {
 
 function initParticles() {
     particles = [];
-    // HIGHER DENSITY FOR PLEXUS STRUCTURES
-    const count = isMobile ? 60 : 160;
+    // PERFORMANCE OPTIMIZATION: Reduced count to prevent lag with triangulation
+    // Desktop: 160 -> 100 | Mobile: 60 -> 40
+    const count = isMobile ? 40 : 100;
     for (let i = 0; i < count; i++) {
         particles.push(new Particle());
     }
@@ -88,8 +89,9 @@ function initParticles() {
 function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // INCREASED CONNECTION DISTANCE FOR LARGER STRUCTURES
-    const connectionDist = isMobile ? 130 : 190;
+    // OPTIMIZED CONNECTION DISTANCE
+    // Slightly increased to maintain structure size with fewer particles
+    const connectionDist = isMobile ? 120 : 210;
 
     particles.forEach((p, i) => {
         p.update();
