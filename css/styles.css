@@ -773,7 +773,8 @@ section {
     text-decoration: none;
     width: 100%;
     padding: 1.2rem;
-    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    background: var(--accent-color);
+    /* Inherits from parent card */
     border: none;
     border-radius: 100px;
     position: relative;
@@ -790,7 +791,8 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+    background: white;
+    /* Bright overlay for hover */
     opacity: 0;
     transition: opacity 0.4s;
     z-index: 1;
@@ -798,11 +800,11 @@ section {
 
 .service-cta:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4), 0 20px 45px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(var(--accent-color-rgb), 0.4), 0 20px 45px rgba(0, 0, 0, 0.3);
 }
 
 .service-cta:hover::before {
-    opacity: 1;
+    opacity: 0.15;
 }
 
 .service-cta span {
