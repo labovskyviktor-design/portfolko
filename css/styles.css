@@ -339,6 +339,8 @@ section {
     align-items: center;
     transition: all 0.5s var(--ease-out);
     background: transparent;
+    pointer-events: auto !important;
+    /* Force interactivity */
 }
 
 /* Increased specificity to guarantee override */
@@ -1273,6 +1275,8 @@ nav.navbar.scrolled {
         padding: 0;
         transition: all 0.4s var(--ease-out);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        pointer-events: auto !important;
+        /* Ensure clickable */
     }
 
     .menu-trigger.active {
