@@ -12,66 +12,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 1. Premium Custom Cursor (Simple & Smooth) ---
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-    cursorDot.className = 'cursor-dot';
-    cursorOutline.className = 'cursor-outline';
-    document.body.appendChild(cursorDot);
-    document.body.appendChild(cursorOutline);
+    // Only init if device has fine pointer (mouse)
+    if (window.matchMedia("(pointer: fine)").matches) {
+        const cursorDot = document.createElement('div');
+        const cursorOutline = document.createElement('div');
+        cursorDot.className = 'cursor-dot';
+        cursorOutline.className = 'cursor-outline';
+        document.body.appendChild(cursorDot);
+        document.body.appendChild(cursorOutline);
 
-    const spotlight = document.createElement('div');
-    spotlight.className = 'spotlight-overlay';
-    document.body.appendChild(spotlight);
+        const spotlight = document.createElement('div');
+        spotlight.className = 'spotlight-overlay';
+        document.body.appendChild(spotlight);
 
-    // Core coordinates
-    let mouseX = 0, mouseY = 0;
-    let dotX = 0, dotY = 0;
-    let outlineX = 0, outlineY = 0;
+        // Core coordinates
+        let mouseX = 0, mouseY = 0;
+        let dotX = 0, dotY = 0;
+        let outlineX = 0, outlineY = 0;
 
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
 
-        spotlight.style.setProperty('--x', `${mouseX}px`);
-        spotlight.style.setProperty('--y', `${mouseY}px`);
-    });
-
-    const lerp = (start, end, factor) => start + (end - start) * factor;
-
-    function renderCursor() {
-        // Smooth movement
-        dotX = lerp(dotX, mouseX, 0.2);
-        dotY = lerp(dotY, mouseY, 0.2);
-        outlineX = lerp(outlineX, mouseX, 0.1);
-        outlineY = lerp(outlineY, mouseY, 0.1);
-
-        cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-        cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
-
-        requestAnimationFrame(renderCursor);
-    }
-    renderCursor();
-
-    // Click behavior
-    window.addEventListener('mousedown', () => cursorOutline.classList.add('clicking'));
-    window.addEventListener('mouseup', () => cursorOutline.classList.remove('clicking'));
-
-    // Dynamic Interaction Detection
-    function initInteractions() {
-        const triggers = document.querySelectorAll('a, button, .skill-card-container, .project-card, .lang-btn, .magnetic');
-
-        triggers.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorDot.classList.add('active');
-                cursorOutline.classList.add('active');
-            });
-
-            el.addEventListener('mouseleave', () => {
-                cursorDot.classList.remove('active');
-                cursorOutline.classList.remove('active');
-            });
+            spotlight.style.setProperty('--x', `${mouseX}px`);
+            spotlight.style.setProperty('--y', `${mouseY}px`);
         });
-    }
+
+        const lerp = (start, end, factor) => start + (end - start) * factor;
+
+        function renderCursor() {
+            // Smooth movement
+            dotX = lerp(dotX, mouseX, 0.2);
+            dotY = lerp(dotY, mouseY, 0.2);
+            outlineX = lerp(outlineX, mouseX, 0.1);
+            outlineY = lerp(outlineY, mouseY, 0.1);
+
+            cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+
+            requestAnimationFrame(renderCursor);
+        }
+        renderCursor();
+
+        // Click behavior
+        window.addEventListener('mousedown', () => cursorOutline.classList.add('clicking'));
+        window.addEventListener('mouseup', () => cursorOutline.classList.remove('clicking'));
+
+        // Dynamic Interaction Detection
+        function initInteractions() {
+            const triggers = document.querySelectorAll('a, button, .skill-card-container, .project-card, .lang-btn, .magnetic');
+
+            triggers.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorDot.classList.add('active');
+                    cursorOutline.classList.add('active');
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    cursorDot.classList.remove('active');
+                    cursorOutline.classList.remove('active');
+                });
+            });
+        }
+    } // End of pointer:fine check
     initInteractions();
 
     // --- 1.1 Premium Magnetic Effect (Smooth LERP) ---

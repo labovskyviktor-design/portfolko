@@ -1242,6 +1242,13 @@ section {
         height: 100% !important;
     }
 
+    /* Disable Custom Cursor on Mobile */
+    .cursor-dot,
+    .cursor-outline,
+    .spotlight-overlay {
+        display: none !important;
+    }
+
     .nav-links {
         display: none;
     }
