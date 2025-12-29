@@ -341,12 +341,14 @@ section {
     background: transparent;
 }
 
-.navbar.scrolled {
+/* Increased specificity to guarantee override */
+nav.navbar.scrolled {
     padding: 1rem 4vw;
     background: rgba(5, 5, 5, 0.95) !important;
     backdrop-filter: blur(20px) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    /* Slightly brighter border */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
 /* Hide mobile elements by default */
