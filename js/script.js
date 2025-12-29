@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
         menuTrigger.classList.toggle('active');
         mobileNav.classList.toggle('active');
+        navbar.classList.toggle('menu-open'); // Added for CSS control
         document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
 
         // Staggered reveal for mobile links

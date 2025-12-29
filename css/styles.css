@@ -1225,6 +1225,13 @@ section {
         display: flex !important;
         align-items: center !important;
         touch-action: pan-y !important;
+        transition: background 0.4s var(--ease-out), backdrop-filter 0.4s var(--ease-out);
+    }
+
+    .navbar.menu-open {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        border-color: transparent !important;
     }
 
     .nav-container {
@@ -1296,7 +1303,8 @@ section {
         align-items: center;
         justify-content: center;
         /* Back to center for full-screen masterpiece look */
-        padding-top: 0;
+        padding-top: 80px;
+        /* Safe space for the 'X' button */
         transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
