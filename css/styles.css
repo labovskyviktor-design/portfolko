@@ -1333,21 +1333,21 @@ section {
     .skill-card {
         transform: none !important;
         transform-style: flat !important;
+        background: #0d0d12 !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 20px !important;
+        padding: 2.5rem 2rem !important;
+        overflow: visible !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
         display: flex !important;
         flex-direction: column !important;
         height: auto !important;
-        background: #0d0d12 !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 20px !important;
-        padding: 2rem !important;
-        overflow: hidden !important;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4) !important;
+        position: relative !important;
     }
 
     .service-card *,
     .skill-card * {
         transform: none !important;
-        filter: none !important;
         transition: none !important;
     }
 
@@ -1379,13 +1379,12 @@ section {
 
     .icon,
     .service-icon {
-        font-size: 3.5rem !important;
-        margin-bottom: 1rem !important;
+        font-size: 3.8rem !important;
+        margin-bottom: 1.5rem !important;
         display: block !important;
-        filter: none !important;
-        /* Remove glow glitch on mobile */
         opacity: 1 !important;
         visibility: visible !important;
+        filter: drop-shadow(0 0 20px rgba(var(--accent-color-rgb, var(--skill-color-rgb, 99, 102, 241)), 0.45)) !important;
     }
 
     .service-card .card-back p,
