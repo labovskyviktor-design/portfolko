@@ -1299,18 +1299,29 @@ section {
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
-        padding: 120px 0 40px !important;
+        padding: 70px 0 40px !important;
     }
 
     .hero-title {
         font-size: 16vw;
         line-height: 1.1;
+        margin-bottom: 1rem !important;
+    }
+
+    .hero-tagline {
+        margin-bottom: 1.5rem !important;
+        font-size: 1.1rem !important;
+    }
+
+    .badge {
+        margin-bottom: 1rem !important;
     }
 
     .cta-group {
         flex-direction: column;
         width: 100%;
         gap: 1rem;
+        margin-top: 1rem !important;
     }
 
     .cta-group .btn {
