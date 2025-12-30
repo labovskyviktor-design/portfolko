@@ -239,4 +239,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- SHOW MORE PROJECTS LOGIC ---
+    const showMoreBtn = document.getElementById('show-more-projects');
+    if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', function () {
+            const hiddenProjects = document.querySelectorAll('.hidden-project');
+            hiddenProjects.forEach((project, index) => {
+                setTimeout(() => {
+                    project.classList.add('reveal');
+                    project.classList.remove('hidden-project');
+                }, index * 200);
+            });
+            this.style.opacity = '0';
+            this.style.pointerEvents = 'none';
+            setTimeout(() => this.remove(), 500);
+        });
+    }
+
 });

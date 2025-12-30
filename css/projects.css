@@ -1,0 +1,77 @@
+/* Button Container */
+.projects-cta-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+    padding-bottom: 2rem;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    /* Ensure full width for centering */
+}
+
+/* Premium Glass/Neon Button */
+.btn-show-more {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    outline: none;
+}
+
+.btn-show-more:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px rgba(var(--accent-color-rgb), 0.3);
+}
+
+.btn-show-more span {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-show-more .icon-arrow {
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    /* Bouncy rotation */
+    display: inline-block;
+}
+
+/* Hidden Projects State */
+.project-card.hidden-project {
+    display: none;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Reveal Animation */
+.project-card.reveal {
+    display: flex;
+    /* Restore flex display for article */
+    animation: revealProject 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes revealProject {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

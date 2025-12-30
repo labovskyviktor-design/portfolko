@@ -14,6 +14,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css?v=4.0">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/projects.css">
 </head>
 
 <body>
@@ -412,7 +414,6 @@
                         class="btn btn-secondary"><span data-i18n="cta.works">GitHub Repo</span></a>
                 </div>
                 <div class="project-image-wrapper">
-                    <!-- Technical Schematic Visual instead of misleading image -->
                     <div class="project-image"
                         style="background: #0f172a; overflow: hidden; position: relative; border: 1px solid rgba(99, 102, 241, 0.2);">
                         <div style="position: absolute; inset: 0; opacity: 0.15; background-image: 
@@ -437,6 +438,79 @@
                     </div>
                 </div>
             </article>
+
+            <!-- HIDDEN PROJECTS (Revealed on Click) -->
+
+            <!-- Project 5: E-Shop Pro -->
+            <article class="project-card hidden-project">
+                <div class="project-info">
+                    <div class="tags">
+                        <span>E-commerce</span>
+                        <span>React</span>
+                        <span>Node.js</span>
+                    </div>
+                    <h3>E-Shop Pro Platform</h3>
+                    <p class="project-desc">Komplexné riešenie pre online obchodovanie s pokročilou správou zásob a
+                        analytikou. Plne responzívny dizajn.</p>
+                    <a href="#" class="btn btn-secondary"><span>Detail Projektu</span></a>
+                </div>
+                <div class="project-image-wrapper">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 3rem; opacity: 0.2;">🛒</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 6: Crypto Dashboard -->
+            <article class="project-card hidden-project">
+                <div class="project-info">
+                    <div class="tags">
+                        <span>FinTech</span>
+                        <span>API Integration</span>
+                        <span>Real-time</span>
+                    </div>
+                    <h3>Crypto Analytics</h3>
+                    <p class="project-desc">Real-time dashboard pre sledovanie kryptomien. WebSocket integrácia pre živé
+                        dáta a interaktívne grafy.</p>
+                    <a href="#" class="btn btn-secondary"><span>Detail Projektu</span></a>
+                </div>
+                <div class="project-image-wrapper">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, #111827 0%, #374151 100%); display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 3rem; opacity: 0.2;">📊</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 7: AI Chat Interface -->
+            <article class="project-card hidden-project">
+                <div class="project-info">
+                    <div class="tags">
+                        <span>AI / LLM</span>
+                        <span>UI/UX</span>
+                        <span>Socket.io</span>
+                    </div>
+                    <h3>AI Assistant UI</h3>
+                    <p class="project-desc">Moderné rozhranie pre komunikáciu s AI modelmi. Streamovanie odpovedí, tmavý
+                        režim a hlasové ovládanie.</p>
+                    <a href="#" class="btn btn-secondary"><span>Detail Projektu</span></a>
+                </div>
+                <div class="project-image-wrapper">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, #312e81 0%, #4c1d95 100%); display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 3rem; opacity: 0.2;">🤖</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Show More Button -->
+            <div class="projects-cta-container">
+                <button id="show-more-projects" class="btn-show-more">
+                    <span data-i18n="projects.showMore">Zobraziť ďalšie projekty</span>
+                    <span class="icon-arrow">↓</span>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -493,7 +567,7 @@
 
     <script src="js/translations.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/script.js?v=4.35"></script>
+    <script src="js/script.js?v=4.39"></script>
 </body>
 
 </html>
