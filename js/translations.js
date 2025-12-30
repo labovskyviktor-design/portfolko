@@ -117,7 +117,13 @@ const translations = {
                 tag3: 'Energy Efficiency'
             }
         },
-        contact: { title: 'Kontakt' }
+        contact: {
+            title: 'Kontakt',
+            label: 'Napíš mi',
+            cta: 'Pripravený vytvoriť<br>niečo <span class="highlight">úžasné?</span>',
+            rights: 'Všetky práva vyhradené.',
+            localTime: 'Lokálny čas:'
+        }
     },
     en: {
         nav: { about: 'About', services: 'Services', skills: 'Skills', work: 'Work', contact: 'Contact' },
@@ -236,7 +242,13 @@ const translations = {
                 tag3: 'Energy Efficiency'
             }
         },
-        contact: { title: 'Contact' }
+        contact: {
+            title: 'Contact',
+            label: 'Get in Touch',
+            cta: 'Ready to create<br>something <span class="highlight">amazing?</span>',
+            rights: 'All rights reserved.',
+            localTime: 'Local time:'
+        }
     }
 };
 

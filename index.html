@@ -12,7 +12,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=2.5">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css?v=4.0">
 </head>
 
 <body>
@@ -442,17 +443,40 @@
     <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container contact-container">
-            <span class="section-title" data-i18n="contact.title">Kontakt</span>
-            <a href="mailto:hello@viktor.dev" class="big-email">hello@viktor.dev</a>
+            <div class="contact-card">
+                <span class="section-label" data-i18n="contact.label">Get in Touch</span>
+                <h2 class="contact-cta" data-i18n="contact.cta">Ready to create<br>something <span
+                        class="highlight">amazing?</span></h2>
 
-            <div class="hero-footer" style="padding-top: 0; border: none; margin-top: 2rem;">
-                <div class="social-links" style="display:flex; gap: 2rem; margin: 0;">
-                    <a href="#">GitHub</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">Instagram</a>
+                <a href="mailto:labovskyviktor@gmail.com" class="big-email magnetic">labovskyviktor@gmail.com</a>
+
+                <div class="social-grid">
+                    <a href="https://github.com/labovskyviktor" target="_blank" class="social-pill magnetic"
+                        aria-label="GitHub">
+                        <span class="icon-box"><i class="fab fa-github"></i></span>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/labovskyviktor" target="_blank" class="social-pill magnetic"
+                        aria-label="LinkedIn">
+                        <span class="icon-box"><i class="fab fa-linkedin-in"></i></span>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="javascript:void(0)" class="social-pill magnetic" aria-label="Twitter">
+                        <span class="icon-box"><i class="fab fa-twitter"></i></span>
+                        <span>Twitter</span>
+                    </a>
+                    <a href="javascript:void(0)" class="social-pill magnetic" aria-label="Instagram">
+                        <span class="icon-box"><i class="fab fa-instagram"></i></span>
+                        <span>Instagram</span>
+                    </a>
                 </div>
-                <p style="color: #666; font-size: 0.8rem;">&copy; 2025 Viktor Labovský.</p>
+            </div>
+
+            <div class="hero-footer">
+                <p>&copy; 2025 Viktor Labovský. <span data-i18n="contact.rights">All rights reserved.</span></p>
+                <div class="footer-meta">
+                    <span data-i18n="contact.localTime">Local time:</span> <span id="local-time">--:--</span>
+                </div>
             </div>
         </div>
     </section>
@@ -469,7 +493,7 @@
 
     <script src="js/translations.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/script.js?v=2.5"></script>
+    <script src="js/script.js?v=4.35"></script>
 </body>
 
 </html>

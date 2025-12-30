@@ -7,7 +7,7 @@ canvas.style.top = '0';
 canvas.style.left = '0';
 canvas.style.width = '100%';
 canvas.style.height = '100%';
-canvas.style.zIndex = '-1'; // Moved to -1 to be strictly behind content
+canvas.style.zIndex = '-1';
 canvas.style.pointerEvents = 'none';
 
 let width, height;
@@ -15,20 +15,32 @@ let particles = [];
 let mouse = { x: -1000, y: -1000 };
 let isMobile = window.innerWidth <= 768;
 
-function resize() {
-    const newWidth = window.innerWidth;
-    const newHeight = window.innerHeight;
+// Global Gradient Storage
+let meshGradient;
 
-    // Only re-init if significant change (not just scrollbar hiding on mobile)
-    if (Math.abs(newWidth - width) > 50 || !isMobile) {
-        width = canvas.width = newWidth;
-        height = canvas.height = newHeight;
-        isMobile = width <= 768;
-        initParticles();
-    }
+function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const displayWidth = window.innerWidth;
+    const displayHeight = window.innerHeight;
+
+    canvas.width = displayWidth * dpr;
+    canvas.height = displayHeight * dpr;
+
+    ctx.scale(dpr, dpr);
+
+    width = displayWidth;
+    height = displayHeight;
+    isMobile = width <= 768;
+
+    // LUXURY GRADIENT (Deepest Void)
+    meshGradient = ctx.createLinearGradient(0, 0, width, height);
+    meshGradient.addColorStop(0, 'rgba(2, 6, 23, 1)');     // Obsidian
+    meshGradient.addColorStop(0.5, 'rgba(15, 23, 42, 1)');  // Dark Slate
+    meshGradient.addColorStop(1, 'rgba(30, 27, 75, 1)');    // Deep Indigo
+
+    initParticles();
 }
 
-// Throttle resize for mobile fluidity
 let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
@@ -39,52 +51,87 @@ class Particle {
     constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        // ULTRA-SLOW MOTION (Deep Space Drift)
-        this.vx = (Math.random() - 0.5) * (isMobile ? 0.15 : 0.08); // Reduced to ~0.08 for minimal drift
-        this.vy = (Math.random() - 0.5) * (isMobile ? 0.15 : 0.08);
-        this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
+        this.size = Math.random() * (isMobile ? 1.5 : 2.5) + 0.5;
 
-        // BALANCED PALETTE: Deep Indigo + Rare Cyan Spark (8%)
-        // The perfect middle ground: distinct but not overwhelming
-        if (Math.random() < 0.08) {
-            this.color = `rgba(6, 182, 212, ${Math.random() * 0.4 + 0.2})`; // Rare Cyan Spark
+        // 3D PARALLAX
+        const depthFactor = this.size / 2;
+
+        // Slower, smoother drift
+        this.baseVx = (Math.random() - 0.5) * (isMobile ? 0.010 : 0.005) * depthFactor;
+        this.baseVy = (Math.random() - 0.5) * (isMobile ? 0.010 : 0.005) * depthFactor;
+
+        this.vx = this.baseVx;
+        this.vy = this.baseVy;
+
+        // VISIBILITY BOOST (v4.34)
+        if (Math.random() < 0.05) {
+            this.rgb = '34, 211, 238'; // Cyan
+            this.baseAlpha = 0.45;
+            this.hasGlow = true;
         } else {
-            this.color = `rgba(99, 102, 241, ${Math.random() * 0.3 + 0.15})`; // Deep Indigo
+            this.rgb = '148, 163, 184'; // Platinum
+            this.baseAlpha = 0.18;
+            this.hasGlow = Math.random() < 0.02;
         }
+
+        this.angle = Math.random() * Math.PI * 2;
+        this.angleSpeed = 0.002 + Math.random() * 0.004;
+        this.phaseOffset = Math.random() * 100;
     }
 
     update() {
+        // FLUID PHYSICS
+        this.vx += (this.baseVx - this.vx) * 0.02;
+        this.vy += (this.baseVy - this.vy) * 0.02;
+
         this.x += this.vx;
         this.y += this.vy;
+        this.angle += this.angleSpeed;
 
-        // Restore mouse/touch interaction detection logic
+        // INTERACTION (Strong Push)
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
+        const interactRadius = isMobile ? 180 : 300;
 
-        if (dist < (isMobile ? 150 : 200)) {
-            const force = ((isMobile ? 150 : 200) - dist) / (isMobile ? 150 : 200);
-            this.vx -= (dx / dist) * force * (isMobile ? 0.8 : 0.5); // STRONGER PUSH ON MOBILE
-            this.vy -= (dy / dist) * force * (isMobile ? 0.8 : 0.5);
+        if (dist < interactRadius) {
+            const relDist = 1 - (dist / interactRadius);
+            const force = relDist * relDist;
+            const pushMultiplier = isMobile ? 0.6 : 0.9;
+
+            this.vx -= (dx / dist) * force * pushMultiplier;
+            this.vy -= (dy / dist) * force * pushMultiplier;
         }
 
-        if (this.x < 0 || this.x > width) this.vx *= -1;
-        if (this.y < 0 || this.y > height) this.vy *= -1;
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
+
+        const alphaFluctuation = Math.sin(this.angle + this.phaseOffset) * 0.08;
+        this.currentAlpha = Math.max(0.02, Math.min(0.8, this.baseAlpha + alphaFluctuation));
     }
 
     draw() {
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = `rgba(${this.rgb}, ${this.currentAlpha})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
+
+        if (this.hasGlow && !isMobile) {
+            ctx.fillStyle = `rgba(${this.rgb}, 0.06)`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
 }
 
 function initParticles() {
     particles = [];
-    // PERFORMANCE OPTIMIZATION: Reduced count to prevent lag with triangulation
-    // Desktop: 160 -> 100 | Mobile: 60 -> 40
-    const count = isMobile ? 40 : 100;
+    // OPTIMIZED DENSITY (Increased by 10 as requested)
+    // 30 -> 40 (Mobile), 65 -> 75 (Desktop)
+    const count = isMobile ? 40 : 75;
     for (let i = 0; i < count; i++) {
         particles.push(new Particle());
     }
@@ -93,9 +140,8 @@ function initParticles() {
 function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // OPTIMIZED CONNECTION DISTANCE
-    // Slightly increased to maintain structure size with fewer particles
-    const connectionDist = isMobile ? 120 : 210;
+    // BALANCED RANGE
+    const connectionDist = isMobile ? 120 : 230;
 
     particles.forEach((p, i) => {
         p.update();
@@ -111,16 +157,19 @@ function animate() {
             if (distSq < minDistSq) {
                 const dist = Math.sqrt(distSq);
 
-                // Draw Connection Line
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 - dist / (connectionDist * 8)})`;
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.stroke();
+                // CUBIC FALLOFF
+                const ratio = 1 - (dist / connectionDist);
+                const opacity = ratio * ratio * ratio * 0.20;
 
-                // PLEXUS TRIANGULATION (High Visibility)
-                // Look for a third particle to form a triangle
+                if (opacity > 0.005) {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                }
+
                 for (let k = j + 1; k < particles.length; k++) {
                     const p3 = particles[k];
                     const dx2 = p2.x - p3.x;
@@ -128,15 +177,19 @@ function animate() {
                     const distSq2 = dx2 * dx2 + dy2 * dy2;
 
                     if (distSq2 < minDistSq) {
-                        // Balanced Structure Fill
-                        // Opacity 0.06: Visible enough to be distinct, subtle enough to be elegant
-                        ctx.fillStyle = `rgba(99, 102, 241, ${0.06 - dist / (connectionDist * 10)})`;
+                        // STRUCTURE FILL
+                        const ratio2 = 1 - (Math.sqrt(distSq2) / connectionDist);
+                        const triAlpha = (ratio * ratio2) * 0.08;
+
+                        ctx.globalAlpha = triAlpha;
+                        ctx.fillStyle = meshGradient;
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
                         ctx.lineTo(p3.x, p3.y);
                         ctx.closePath();
                         ctx.fill();
+                        ctx.globalAlpha = 1.0;
                     }
                 }
             }
@@ -146,7 +199,6 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// RESTORED TOUCH INTERACTIVITY FOR MOBILE
 window.addEventListener('mousemove', e => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
@@ -171,8 +223,5 @@ window.addEventListener('touchend', () => {
     mouse.y = -1000;
 });
 
-// Initial trigger
-width = canvas.width = window.innerWidth;
-height = canvas.height = window.innerHeight;
-initParticles();
+resize();
 animate();
