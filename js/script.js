@@ -51,13 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // --- 1. Navbar & Scroll Logic ---
+    // --- 1. Navbar & Scroll Logic (THROTTLED) ---
     const navbar = document.querySelector('.navbar');
     const backToTop = document.querySelector('.back-to-top');
     const progressBar = document.querySelector('.progress-circle-bar');
     const progressTotal = 283;
 
-    window.addEventListener('scroll', () => {
+    let scrollScheduled = false;
+    function handleScroll() {
         if (navbar) {
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
@@ -79,7 +80,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const offset = progressTotal - (scrollPercent * progressTotal);
             progressBar.style.strokeDashoffset = offset;
         }
-    });
+
+        scrollScheduled = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!scrollScheduled) {
+            scrollScheduled = true;
+            requestAnimationFrame(handleScroll);
+        }
+    }, { passive: true });
 
     // Auto-close on link click
     const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -196,11 +206,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateMagnetic() {
+        // Skip when tab is hidden (performance boost)
+        if (document.hidden) {
+            requestAnimationFrame(updateMagnetic);
+            return;
+        }
+
         magneticItems.forEach(item => {
-            const lerp = (start, end, factor) => start + (end - start) * factor;
-            item.currentX = lerp(item.currentX, item.targetX, item.lerp);
-            item.currentY = lerp(item.currentY, item.targetY, item.lerp);
-            item.el.style.transform = `translate3d(${item.currentX}px, ${item.currentY}px, 0)`;
+            // Only update if element is in viewport (major optimization)
+            const rect = item.el.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+            if (isVisible) {
+                const lerp = (start, end, factor) => start + (end - start) * factor;
+                item.currentX = lerp(item.currentX, item.targetX, item.lerp);
+                item.currentY = lerp(item.currentY, item.targetY, item.lerp);
+                item.el.style.transform = `translate3d(${item.currentX}px, ${item.currentY}px, 0)`;
+            }
         });
         requestAnimationFrame(updateMagnetic);
     }
@@ -208,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagnetic();
     updateMagnetic();
 
-    // --- 4. Smooth Scroll Reveal ---
+    // --- 4. Smooth Scroll Reveal (Optimized) ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -218,7 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, {
+        threshold: 0.05,  // Reduced from 0.1 for earlier triggering
+        rootMargin: '50px'  // Start animation slightly before element enters viewport
+    });
 
     const sections = document.querySelectorAll('section, header');
     sections.forEach(section => {
@@ -226,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         revealElements.forEach((el, i) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
-            el.style.transition = `all 0.6s cubic-bezier(0.23, 1, 0.32, 1) ${i * 0.05}s`;
+            el.style.transition = `all 0.6s cubic-bezier(0.23, 1, 0.32, 1) ${i * 0.03}s`;  // Reduced from 0.05s
             observer.observe(el);
         });
     });

@@ -477,6 +477,8 @@ body .navbar.scrolled {
     border-radius: 100px;
     z-index: 1;
     text-decoration: none;
+    will-change: transform;
+    /* GPU acceleration for hover */
 }
 
 .btn span {
@@ -681,9 +683,11 @@ body .navbar.scrolled {
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    /* Slowed from 1s for more elegant flip */
     transform-style: preserve-3d;
     will-change: transform;
+    /* GPU acceleration hint */
 }
 
 @media (min-width: 769px) {
@@ -694,7 +698,8 @@ body .navbar.scrolled {
 
 .service-card .card-face {
     background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    /* Reduced from 20px for better performance */
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 3rem;
     display: flex;
@@ -702,6 +707,8 @@ body .navbar.scrolled {
     align-items: center;
     justify-content: center;
     border-radius: 30px;
+    will-change: transform;
+    /* GPU hint */
 }
 
 .service-web {
@@ -861,12 +868,15 @@ body .navbar.scrolled {
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Slowed from 0.6s for smoother flip */
     transform-style: preserve-3d;
     background: transparent;
     border: none;
     padding: 0;
     transform: translate3d(0, 0, 0);
+    will-change: transform;
+    /* GPU acceleration */
 }
 
 /* 3D Flip Card Container - Restricted to Desktop Hover */

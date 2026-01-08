@@ -18,6 +18,12 @@ let isMobile = window.innerWidth <= 768;
 // Global Gradient Storage
 let meshGradient;
 
+// Performance Monitoring
+let lastFrameTime = performance.now();
+let fps = 60;
+let frameCount = 0;
+let lastFpsUpdate = performance.now();
+
 function resize() {
     const dpr = window.devicePixelRatio || 1;
     const displayWidth = window.innerWidth;
@@ -60,17 +66,20 @@ class Particle {
         this.baseVx = (Math.random() - 0.5) * (isMobile ? 0.010 : 0.005) * depthFactor;
         this.baseVy = (Math.random() - 0.5) * (isMobile ? 0.010 : 0.005) * depthFactor;
 
+        this.id = Math.random(); // Unique ID for grid filtering
+
         this.vx = this.baseVx;
         this.vy = this.baseVy;
 
-        // VISIBILITY BOOST (v4.34)
+        // VISIBILITY BOOST (v4.42) - Night Sky Mode
         if (Math.random() < 0.05) {
             this.rgb = '34, 211, 238'; // Cyan
-            this.baseAlpha = 0.45;
+            this.baseAlpha = 0.55; // Boosted for sparks
             this.hasGlow = true;
         } else {
             this.rgb = '148, 163, 184'; // Platinum
-            this.baseAlpha = 0.18;
+            // Slightly brighter base particles for "starry" feel
+            this.baseAlpha = 0.25;
             this.hasGlow = Math.random() < 0.02;
         }
 
@@ -129,32 +138,100 @@ class Particle {
 
 function initParticles() {
     particles = [];
-    // OPTIMIZED DENSITY (Increased by 10 as requested)
-    // 30 -> 40 (Mobile), 65 -> 75 (Desktop)
-    const count = isMobile ? 40 : 75;
+    // OPTIMIZED DENSITY - Balanced for performance & visual quality
+    // Reduced from 110/60 to 70/45 for better performance
+    const count = isMobile ? 45 : 70;
     for (let i = 0; i < count; i++) {
         particles.push(new Particle());
     }
 }
 
 function animate() {
+    // Skip rendering when tab is hidden (MAJOR performance boost)
+    if (document.hidden) {
+        requestAnimationFrame(animate);
+        return;
+    }
+
+    // FPS Monitoring
+    const now = performance.now();
+    const delta = now - lastFrameTime;
+    lastFrameTime = now;
+
+    frameCount++;
+    if (now - lastFpsUpdate > 1000) {
+        fps = Math.round((frameCount * 1000) / (now - lastFpsUpdate));
+        frameCount = 0;
+        lastFpsUpdate = now;
+    }
+
     ctx.clearRect(0, 0, width, height);
 
-    // BALANCED RANGE
+    // OPTIMIZED GRID SETTINGS - Larger cells = fewer checks
     const connectionDist = isMobile ? 120 : 230;
+    const cellSize = connectionDist * 1.5; // Increased for better performance
+    const cols = Math.ceil(width / cellSize);
+    const rows = Math.ceil(height / cellSize);
+    const grid = new Array(cols * rows).fill(null).map(() => []);
 
-    particles.forEach((p, i) => {
+    // 1. UPDATE & BUCKET PARTICLES
+    particles.forEach(p => {
         p.update();
-        p.draw();
+        p.draw(); // Draw dot
 
-        for (let j = i + 1; j < particles.length; j++) {
-            const p2 = particles[j];
+        // Determine grid cell
+        const col = Math.floor(p.x / cellSize);
+        const row = Math.floor(p.y / cellSize);
+
+        if (col >= 0 && col < cols && row >= 0 && row < rows) {
+            grid[row * cols + col].push(p);
+        }
+    });
+
+    // 2. CHECK CONNECTIONS EFFICIENTLY
+    const minDistSq = connectionDist * connectionDist;
+
+    // Helper to get particles from adjacent cells
+    const getNeighborParticles = (col, row) => {
+        const neighbors = [];
+        for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+                const c = col + dx;
+                const r = row + dy;
+                if (c >= 0 && c < cols && r >= 0 && r < rows) {
+                    const cellParticles = grid[r * cols + c];
+                    if (cellParticles) neighbors.push(...cellParticles);
+                }
+            }
+        }
+        return neighbors;
+    };
+
+    // BATCH RENDERING - Collect all lines first, then render
+    const linesToDraw = [];
+
+    particles.forEach(p => {
+        const pCol = Math.floor(p.x / cellSize);
+        const pRow = Math.floor(p.y / cellSize);
+        const neighbors = getNeighborParticles(pCol, pRow);
+
+        // Iterate only potential neighbors
+        for (let i = 0; i < neighbors.length; i++) {
+            const p2 = neighbors[i];
+
+            // Avoid duplicate checks
+            if (p.id >= p2.id) continue;
+
             const dx = p.x - p2.x;
             const dy = p.y - p2.y;
+
+            // Quick bounding box check (avoid expensive sqrt)
+            if (Math.abs(dx) > connectionDist || Math.abs(dy) > connectionDist) continue;
+
             const distSq = dx * dx + dy * dy;
-            const minDistSq = connectionDist * connectionDist;
 
             if (distSq < minDistSq) {
+                // Use squared distance for ratio calculation when possible
                 const dist = Math.sqrt(distSq);
 
                 // CUBIC FALLOFF
@@ -162,46 +239,72 @@ function animate() {
                 const opacity = ratio * ratio * ratio * 0.20;
 
                 if (opacity > 0.005) {
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.stroke();
+                    linesToDraw.push({ p, p2, opacity });
                 }
 
-                for (let k = j + 1; k < particles.length; k++) {
-                    const p3 = particles[k];
-                    const dx2 = p2.x - p3.x;
-                    const dy2 = p2.y - p3.y;
-                    const distSq2 = dx2 * dx2 + dy2 * dy2;
+                // TRIANGLES - Skip if FPS is low to maintain smoothness
+                // Only render triangles if performance is good (>45 fps)
+                const shouldRenderTriangles = fps > 45 || !isMobile;
 
-                    if (distSq2 < minDistSq) {
-                        // STRUCTURE FILL
-                        const ratio2 = 1 - (Math.sqrt(distSq2) / connectionDist);
-                        const triAlpha = (ratio * ratio2) * 0.08;
+                if (shouldRenderTriangles) {
+                    for (let j = i + 1; j < neighbors.length; j++) {
+                        const p3 = neighbors[j];
+                        if (p2.id >= p3.id) continue; // Ensure ordering to prevent dupes
 
-                        ctx.globalAlpha = triAlpha;
-                        ctx.fillStyle = meshGradient;
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.lineTo(p3.x, p3.y);
-                        ctx.closePath();
-                        ctx.fill();
-                        ctx.globalAlpha = 1.0;
+                        const dx2 = p2.x - p3.x;
+                        const dy2 = p2.y - p3.y;
+                        const distSq2 = dx2 * dx2 + dy2 * dy2;
+
+                        if (distSq2 < minDistSq) {
+                            // Original Logic check: DistSq2 < MinDistSq.
+                            // It implicitly relied on loop order P -> P2 -> P3.
+                            // Ideally strictly we should check P->P3 too for "perfect" Plexus
+                            // but to maintain EXACT visual behavior of previous code,
+                            // we only check P2->P3. (Though previous code forced P3 to be after P2 index).
+
+                            const ratio2 = 1 - (Math.sqrt(distSq2) / connectionDist);
+                            const triAlpha = (ratio * ratio2) * 0.08;
+
+                            ctx.globalAlpha = triAlpha;
+                            ctx.fillStyle = meshGradient;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.lineTo(p3.x, p3.y);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.globalAlpha = 1.0;
+                        }
                     }
                 }
             }
         }
     });
 
+    // BATCH RENDER ALL LINES (much faster than individual strokes)
+    linesToDraw.forEach(({ p, p2, opacity }) => {
+        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+    });
+
     requestAnimationFrame(animate);
 }
 
+// Throttled mouse tracking for better performance
+let mouseUpdateScheduled = false;
 window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    if (!mouseUpdateScheduled) {
+        mouseUpdateScheduled = true;
+        requestAnimationFrame(() => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            mouseUpdateScheduled = false;
+        });
+    }
 });
 
 window.addEventListener('touchstart', e => {
