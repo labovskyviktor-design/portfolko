@@ -48,7 +48,19 @@ function resize() {
 }
 
 let resizeTimeout;
+let lastWidth = window.innerWidth;
+
 window.addEventListener('resize', () => {
+    // Mobile Address Bar Fix: Ignore vertical resize on mobile if width hasn't changed
+    const currentWidth = window.innerWidth;
+    const isMobileDevice = window.innerWidth <= 768;
+
+    if (isMobileDevice && currentWidth === lastWidth) {
+        return; // Skip resize if only height changed (address bar)
+    }
+
+    lastWidth = currentWidth;
+
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(resize, 200);
 });
