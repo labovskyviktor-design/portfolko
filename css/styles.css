@@ -1414,6 +1414,13 @@ body .navbar.scrolled {
 }
 
 /* Responsive */
+
+/* Contact Section Spacing Adjustment */
+#contact {
+    padding-top: 0;
+    /* Removing top padding since previous section has bottom spacing */
+}
+
 /* --- Responsive Overhaul --- */
 @media (max-width: 1024px) {
     .hero-title {
