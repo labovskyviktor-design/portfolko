@@ -611,16 +611,30 @@ body .navbar.scrolled {
     /* Fast hover in */
 }
 
-.hero-title.auto-animate .text-stroke {
-    color: rgba(255, 255, 255, 0.1);
-    -webkit-text-stroke: 2px var(--accent-1);
-    transition: all 0.2s ease-out;
-    /* Fast flash in */
+@keyframes strokeFlash {
+    0% {
+        color: transparent;
+        -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+    }
+
+    10% {
+        color: rgba(255, 255, 255, 0.1);
+        -webkit-text-stroke: 2px var(--accent-1);
+    }
+
+    30% {
+        color: rgba(255, 255, 255, 0.1);
+        -webkit-text-stroke: 2px var(--accent-1);
+    }
+
+    100% {
+        color: transparent;
+        -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+    }
 }
 
-/* Special class for slow fade out after auto-animation */
-.hero-title.slow-fade .text-stroke {
-    transition: all 2.5s ease-out !important;
+.hero-title.animate-flash .text-stroke {
+    animation: strokeFlash 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .hero-tagline {

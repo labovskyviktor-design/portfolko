@@ -288,19 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         const heroTitle = document.querySelector('.hero-title');
         if (heroTitle) {
-            // 1. Flash IN (Fast)
-            heroTitle.classList.add('auto-animate');
-
+            heroTitle.classList.add('animate-flash');
             setTimeout(() => {
-                // 2. Prepare for Slow Fade OUT
-                heroTitle.classList.add('slow-fade');
-                heroTitle.classList.remove('auto-animate'); // Triggers fade out with slow-fade transition
-
-                // 3. Cleanup after animation ends
-                setTimeout(() => {
-                    heroTitle.classList.remove('slow-fade');
-                }, 2600); // 2.5s transition + buffer
-            }, 600); // Hold for 600ms
+                heroTitle.classList.remove('animate-flash');
+            }, 3000); // Matches CSS animation duration
         }
     }, 2000); // Start after 2s
 
