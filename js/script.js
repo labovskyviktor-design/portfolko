@@ -284,4 +284,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- HERO TEXT AUTO ANIMATION ---
+    setTimeout(() => {
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            heroTitle.classList.add('auto-animate');
+            setTimeout(() => {
+                heroTitle.classList.remove('auto-animate');
+            }, 1000); // Animation duration 1s
+        }
+    }, 2000); // Start after 2s
+
 });
