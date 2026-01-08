@@ -275,9 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     project.classList.remove('hidden-project');
                 }, index * 200);
             });
-            this.style.opacity = '0';
-            this.style.pointerEvents = 'none';
-            setTimeout(() => this.remove(), 500);
+            // Hide button immediately
+            this.style.display = 'none';
         });
     }
 
