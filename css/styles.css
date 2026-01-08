@@ -603,7 +603,8 @@ body .navbar.scrolled {
     transition: all 0.5s ease;
 }
 
-.hero-title:hover .text-stroke {
+.hero-title:hover .text-stroke,
+.hero-title.auto-animate .text-stroke {
     color: rgba(255, 255, 255, 0.1);
     -webkit-text-stroke: 2px var(--accent-1);
 }
