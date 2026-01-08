@@ -82,10 +82,30 @@
     filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.3));
 }
 
-/* Responsive */
+/* Hidden Projects Logic */
+.hidden-project {
+    display: none !important;
+}
+
+.project-card.reveal {
+    display: flex !important;
+    animation: fadeReveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes fadeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Show More Button */
+
 .projects-cta-container {
     display: flex;
     justify-content: center;
