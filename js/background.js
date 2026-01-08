@@ -138,22 +138,9 @@ class Particle {
 
 function initParticles() {
     particles = [];
-    // ADAPTIVE PERFORMANCE - Automatically adjusts based on device capability
-    // Start with optimal count, will reduce if FPS drops
-    const baseCount = isMobile ? 45 : 70;
-
-    // Check if we should reduce particles based on previous FPS
-    let count = baseCount;
-    if (fps < 50 && fps > 0) {
-        // Performance is struggling, reduce by 40%
-        count = Math.floor(baseCount * 0.6);
-        console.log(`⚡ Adaptive Performance: Reduced particles to ${count} (FPS: ${fps})`);
-    } else if (fps < 40 && fps > 0) {
-        // Severe performance issues, reduce by 60%
-        count = Math.floor(baseCount * 0.4);
-        console.log(`⚡ Adaptive Performance: Severely reduced particles to ${count} (FPS: ${fps})`);
-    }
-
+    // OPTIMIZED DENSITY - Balanced for performance & visual quality
+    // Reduced from 110/60 to 70/45 for better performance
+    const count = isMobile ? 45 : 70;
     for (let i = 0; i < count; i++) {
         particles.push(new Particle());
     }
@@ -180,9 +167,8 @@ function animate() {
 
     ctx.clearRect(0, 0, width, height);
 
-    // OPTIMIZED GRID SETTINGS - Reduced connection distance for better performance
-    // Reduced by ~20% from original (120/230 -> 100/180)
-    const connectionDist = isMobile ? 100 : 180;
+    // OPTIMIZED GRID SETTINGS - Larger cells = fewer checks
+    const connectionDist = isMobile ? 120 : 230;
     const cellSize = connectionDist * 1.5; // Increased for better performance
     const cols = Math.ceil(width / cellSize);
     const rows = Math.ceil(height / cellSize);
@@ -277,7 +263,7 @@ function animate() {
                             // we only check P2->P3. (Though previous code forced P3 to be after P2 index).
 
                             const ratio2 = 1 - (Math.sqrt(distSq2) / connectionDist);
-                            const triAlpha = (ratio * ratio2) * 0.05;  // Reduced from 0.08 for better performance
+                            const triAlpha = (ratio * ratio2) * 0.08;
 
                             ctx.globalAlpha = triAlpha;
                             ctx.fillStyle = meshGradient;
