@@ -290,8 +290,30 @@ body::before {
         opacity: 0.3;
     }
 
-    50% {
-        opacity: 1;
+    .hero-container {
+        padding: 0 1.5rem;
+        height: 100vh;
+        /* Keep full viewport height */
+        justify-content: center;
+        /* Center content vertically */
+    }
+
+    .section {
+        padding: 4rem 1.5rem;
+        /* Reduced from default large padding */
+        min-height: auto;
+    }
+
+    .section-title {
+        margin-bottom: 2.5rem;
+        /* Tighter title spacing */
+    }
+
+    /* Reduce vertical gaps between items */
+    .services-grid,
+    .projects-grid,
+    .social-grid {
+        gap: 2rem;
     }
 
     100% {
