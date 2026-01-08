@@ -275,8 +275,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     project.classList.remove('hidden-project');
                 }, index * 200);
             });
-            // Hide button immediately
-            this.style.display = 'none';
+            // Hide button with animation
+            this.style.opacity = '0';
+            this.style.pointerEvents = 'none';
+            setTimeout(() => {
+                this.style.display = 'none';
+            }, 600);
         });
     }
 
