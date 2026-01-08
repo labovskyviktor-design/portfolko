@@ -600,8 +600,8 @@ body .navbar.scrolled {
 .text-stroke {
     color: transparent;
     -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
-    transition: all 2.5s ease-out;
-    /* Slow fade out (2.5s) */
+    transition: all 0.5s ease;
+    /* Default fast transition for hover */
 }
 
 .hero-title:hover .text-stroke {
@@ -615,7 +615,12 @@ body .navbar.scrolled {
     color: rgba(255, 255, 255, 0.1);
     -webkit-text-stroke: 2px var(--accent-1);
     transition: all 0.2s ease-out;
-    /* Fast flash in (0.2s) */
+    /* Fast flash in */
+}
+
+/* Special class for slow fade out after auto-animation */
+.hero-title.slow-fade .text-stroke {
+    transition: all 2.5s ease-out !important;
 }
 
 .hero-tagline {
