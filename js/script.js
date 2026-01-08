@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             heroTitle.classList.add('auto-animate');
             setTimeout(() => {
                 heroTitle.classList.remove('auto-animate');
-            }, 2500); // Slower animation duration
+            }, 800); // Short hold, then slow fade out via CSS
         }
     }, 2000); // Start after 2s
 

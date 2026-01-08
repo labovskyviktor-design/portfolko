@@ -600,19 +600,22 @@ body .navbar.scrolled {
 .text-stroke {
     color: transparent;
     -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
-    transition: all 0.5s ease;
+    transition: all 2.5s ease-out;
+    /* Slow fade out (2.5s) */
 }
 
 .hero-title:hover .text-stroke {
     color: rgba(255, 255, 255, 0.1);
     -webkit-text-stroke: 2px var(--accent-1);
+    transition: all 0.2s ease-out;
+    /* Fast hover in */
 }
 
 .hero-title.auto-animate .text-stroke {
     color: rgba(255, 255, 255, 0.1);
     -webkit-text-stroke: 2px var(--accent-1);
-    transition: all 1.5s ease-in-out;
-    /* Slower and smoother */
+    transition: all 0.2s ease-out;
+    /* Fast flash in (0.2s) */
 }
 
 .hero-tagline {
